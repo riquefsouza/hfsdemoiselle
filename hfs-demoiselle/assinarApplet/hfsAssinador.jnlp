@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" codebase="http://localhost:8080/hfs-demoiselle" href="hfsAssinador.jnlp">
+   <information>
+      <title>Assinador Digital</title>
+      <vendor>Henrique Figueiredo de Souza</vendor>
+   </information>
+
+   <security>
+      <all-permissions/>
+   </security>
+   
+   <resources>
+      <j2se version="1.7+"/>
+      
+      <jar href="projeto-jnlp.jar" main="true"/>
+      <jar href="javaws.jar"/>
+      
+   </resources>
+   <application-desc main-class="br.hfs.util.assinatura.AssinaturaFrame"/>
+</jnlp>

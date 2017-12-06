@@ -1,0 +1,119 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="form">
+			<h3>Carregando a lista por demanda (Paginada no servidor e
+				paginada no cliente)</h3>
+			<h:outputText value="Número Total de Linhas: " />
+			<h:outputText value="#{correioLazyView.totalLinhas}" />
+
+			<p:separator />
+
+			<p:dataTable var="correio" value="#{correioLazyView.lazyModel}"
+				paginator="true" rows="#{correioLazyView.tamanhoPagina}"
+				first="#{correioLazyView.numeroPagina}"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				currentPageReportTemplate="{startRecord} - {endRecord} de {totalRecords} Linhas"
+				rowsPerPageTemplate="10,20,50,100,150,200,250"
+				selectionMode="single"
+				selection="#{correioLazyView.selectedCorreio}" id="correioTable"
+				lazy="true" emptyMessage="#{messages['main.nenhum.registro']}">
+
+				<p:ajax event="rowSelect" listener="#{correioLazyView.onRowSelect}"
+					update=":form:correioDetail"
+					oncomplete="PF('correioDialog').show()" />
+
+				<p:column headerText="Id" sortBy="#{correio.id}"
+					filterBy="#{correio.id}" style="width: 10%">
+					<h:outputText value="#{correio.id}" />
+				</p:column>
+
+				<p:column headerText="Estado" sortBy="#{correio.estado}"
+					filterBy="#{correio.estado}">
+					<h:outputText value="#{correio.estado}" />
+				</p:column>
+				<p:column headerText="Cidade" sortBy="#{correio.cidade}"
+					filterBy="#{correio.cidade}">
+					<h:outputText value="#{correio.cidade}" />
+				</p:column>				
+				<p:column headerText="Tipo de Logradouro"
+					sortBy="#{correio.tipoLogradouro}"
+					filterBy="#{correio.tipoLogradouro}">
+					<h:outputText value="#{correio.tipoLogradouro}" />
+				</p:column>
+				<p:column headerText="Logradouro" sortBy="#{correio.logradouro}"
+					filterBy="#{correio.logradouro}">
+					<h:outputText value="#{correio.logradouro}" />
+				</p:column>
+				<p:column headerText="Bairro" sortBy="#{correio.bairro}"
+					filterBy="#{correio.bairro}">
+					<h:outputText value="#{correio.bairro}" />
+				</p:column>
+				<p:column headerText="CEP" sortBy="#{correio.cep}"
+					filterBy="#{correio.cep}">
+					<h:outputText value="#{correio.cep}" converter="mascaraCepConverter" />
+				</p:column>
+
+				<p:column style="width:32px;text-align: center">
+					<p:commandButton icon="ui-icon-search"
+						title="Visualizar" action="#{correioLazyView.getNextView}"
+						actionListener="#{correioLazyView.clear}">
+						<f:param name="id" value="#{correio.id}" />						
+					</p:commandButton>
+				</p:column>
+
+				<p:column style="width:32px;text-align: center">
+					<p:commandButton update=":form:correioDetail"
+						oncomplete="PF('correioDialog').show()" icon="ui-icon-pencil"
+						title="Editar">
+						<f:setPropertyActionListener value="#{correio}"
+							target="#{correioLazyView.selectedCorreio}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column style="width:32px;text-align: center">
+					<p:commandButton update=":form:correioDetail"
+						oncomplete="PF('correioDialog').show()" icon="ui-icon-trash"
+						title="Excluir">
+						<f:setPropertyActionListener value="#{correio}"
+							target="#{correioLazyView.selectedCorreio}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog header="Correio Detalhes" widgetVar="correioDialog"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="correioDetail" style="text-align:center;">
+					<p:panelGrid columns="2"
+						rendered="#{not empty correioLazyView.selectedCorreio}"
+						columnClasses="label,value">
+
+						<h:outputText value="Número da Página: " />
+						<h:outputText value="#{correioLazyView.numeroPagina}" />
+
+						<h:outputText value="Tamanho da Página: " />
+						<h:outputText value="#{correioLazyView.tamanhoPagina}" />
+
+						<h:outputText value="Id:" />
+						<h:outputText value="#{correioLazyView.selectedCorreio.id}" />
+
+						<h:outputText value="Login:" />
+						<h:outputText value="#{correioLazyView.selectedCorreio.uf}" />
+
+						<h:outputText value="Nome:" />
+						<h:outputText value="#{correioLazyView.selectedCorreio.estado}" />
+
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

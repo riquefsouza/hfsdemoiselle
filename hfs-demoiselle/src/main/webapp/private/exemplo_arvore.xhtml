@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<h3 style="margin-top: 0">Exemplo de Árvore</h3>
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="Carregar"
+						disabled="#{arvoreView.raiz == null ? false : true}"
+						action="#{arvoreView.carregarArvore}" ajax="false" />
+						
+					<p:commandButton value="Mostrar Selecionado" icon="ui-icon-newwin"
+						rendered="#{arvoreView.raiz == null ? false : true}"
+						actionListener="#{arvoreView.mostrarSelecionado}" ajax="false" />						
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<h:outputText value="Número Total de Linhas: " />
+			<h:outputText value="#{arvoreView.totalLinhas}" />
+			
+			<p:separator />
+
+			<br />
+
+			<p:tree value="#{arvoreView.raiz}" var="node" id="arvore"
+				style="width: 100%" selectionMode="single"
+				selection="#{arvoreView.selectedNode}">
+				<p:treeNode id="arvoreNode" expandedIcon="ui-icon-folder-open"
+					collapsedIcon="ui-icon-folder-collapsed">
+					<h:outputText value="#{node}" id="lblNode" />
+				</p:treeNode>
+			</p:tree>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

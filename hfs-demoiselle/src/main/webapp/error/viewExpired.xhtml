@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<f:view contentType="text/html">
+<h:head>	
+	<title>#{messages['main.app.title']}</title>
+	<link type="text/css" rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/styles.css" />
+</h:head>
+
+<h:body>	
+	<div class="blocoPrincipal">
+		<!-- TOPO -->
+		<div class="topo">
+			<div class="logoTopo"></div>
+			<div class="tituloTopo">
+				<h:outputText value="#{messages['main.app.title']}" />
+			</div>
+			<table class="tabelaTopo">				
+			</table>
+		</div>
+		<div class="centro">
+			<div class="conteudo">				
+				<div style="float:left;margin: 0px; padding: 0px; display: block;margin-left: 15px;">				
+				<h1>Sua sessão expirou!</h1>
+				<p>Para voltar a utilizar o sistema, faça o <a href="#{facesContext.externalContext.requestContextPath}/login.jsf">login</a>.</p>
+				</div>				
+				<br />
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="basePainel"></div>
+	</div>
+</h:body>
+</f:view>
+</html>

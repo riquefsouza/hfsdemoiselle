@@ -1,0 +1,10 @@
+echo grant { permission java.util.PropertyPermission "jna.boot.library.path", "read"; permission java.lang.RuntimePermission "loadLibrary.jnidispatch"; }; > .java.policy
+copy .java.policy "%HOMEDRIVE%%HOMEPATH%"
+
+
+grant { 
+	permission java.util.PropertyPermission "jna.boot.library.path", "read";  
+	permission java.lang.RuntimePermission "loadLibrary.jnidispatch";
+	permission java.io.FilePermission * "read, write, execute, delete";
+	permission java.security.AllPermission;
+}; 

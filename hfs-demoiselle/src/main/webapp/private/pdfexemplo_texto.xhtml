@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form style="width: 1200px" enctype="multipart/form-data">
+			<h:panelGrid columns="2">
+				<h:outputText for="arquivo" value="Arquivo PDF:" />
+				<p:fileUpload id="arquivo" mode="simple"
+					value="#{pdfTextoView.arquivoPDF}" />
+				<p:spacer />
+				<p:commandButton value="Converter PDF para Texto" ajax="false"
+					actionListener="#{pdfTextoView.carregar()}" />
+			</h:panelGrid>
+
+			<p:carousel value="#{pdfTextoView.lista}" numVisible="1"
+				headerText="Páginas do PDF convertidas para Texto" var="item"
+				responsive="true">
+				<p:panelGrid columns="1" style="width:100%;margin:10px 0px"
+					layout="grid">
+					<f:facet name="header">
+						Página #{item.numero}.
+					</f:facet>
+					
+					<ui:repeat var="linha" value="#{item.texto}">						
+						<h:outputText value="#{linha}" />		
+						<br />				
+					</ui:repeat> 
+				</p:panelGrid>
+
+				<f:facet name="footer">
+        	        No total existem #{pdfTextoView.lista.size()} páginas.
+		        </f:facet>
+			</p:carousel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

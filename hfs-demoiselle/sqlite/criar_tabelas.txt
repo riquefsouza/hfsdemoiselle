@@ -1,0 +1,61 @@
+CREATE TABLE CATEGORIA(
+	codigo int NOT NULL,
+	descricao varchar(500) NOT NULL,
+ CONSTRAINT CATEGORIA_PK PRIMARY KEY(codigo)
+ );
+
+
+CREATE TABLE ESTRUTURA_ORGANIZACIONAL(
+	codigo_organizacao int NOT NULL,
+	codigo int NOT NULL,
+	dt_inicial datetime NULL,
+	dt_final datetime NULL,
+	ativada int NULL,
+	descricao varchar(500) NULL,
+	cod_ut varchar(20) NULL,
+	sigla varchar(20) NULL,
+	cod_diret_ACE_estrut_orgn int NULL,
+	codigo_ace_categoria int NULL,
+	codigo_sia_unidade_ensino int NULL,
+	codigo_pap_unid_orcamentaria int NULL,
+	codigo_pai int NULL,
+	codigo_ddv_funcao int NULL,
+	codigo_ABP_imovel int NULL,
+	cod_executor int NULL,
+	cod_secretaria varchar(20) NULL,
+	codigo_ace_vinculacao int NULL,
+	usuario_incl varchar(100) NULL,
+	data_hora_incl datetime NULL,
+	usuario_altr varchar(100) NULL,
+	data_hora_altr datetime NULL,
+	codigo_origem int NULL,
+	telefone varchar(20) NULL,
+	ramal varchar(20) NULL,
+	email varchar(100) NULL,
+	cod_secret_ACE_estrut_orgn int NULL,
+ CONSTRAINT ESTRUTURA_ORGANIZACIONAL_PK PRIMARY KEY(codigo_organizacao, codigo)
+);
+
+
+
+CREATE view consulta AS
+SELECT codigo_organizacao
+      ,codigo
+      ,codigo_pai
+      ,descricao
+      ,sigla
+      ,(select descricao from CATEGORIA where codigo=codigo_ace_categoria) Categoria
+FROM ESTRUTURA_ORGANIZACIONAL
+where ativada=1 and dt_final is null;
+
+create view consulta_pai as
+SELECT codigo_organizacao
+      ,codigo
+      ,codigo_pai
+      ,descricao
+      ,sigla
+      ,Categoria
+  FROM CONSULTA
+  where codigo_pai is null;
+  
+  

@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputText value="Login:" />
+				<p:inputText id="login" value="#{ldapMB.login}" />
+
+				<h:outputText value="Senha:" />
+				<p:password id="senha" value="#{ldapMB.senha}" />
+			</h:panelGrid>
+
+			<p:commandButton value="Testar LDAP" title="Testar LDAP"
+				action="#{ldapMB.testarLogin}" ajax="false" />
+
+			<p:dataTable var="bean" value="#{ldapMB.lista}"
+				emptyMessage="#{messages['main.nenhum.registro']}">
+				<p:column headerText="Id">
+					<h:outputText value="#{bean.id}" />
+				</p:column>
+
+				<p:column headerText="Valor">
+					<h:outputText value="#{bean.valor}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

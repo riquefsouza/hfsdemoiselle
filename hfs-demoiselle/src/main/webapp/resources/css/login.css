@@ -1,0 +1,5 @@
+@CHARSET "UTF-8";
+
+.ui-commandlink {
+	background:url("../images/carregar.png") no-repeat; height: 46px; width: 43px; display: block; text-indent: -9000px;
+}	

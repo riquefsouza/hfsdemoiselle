@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false" style="width: 550px">
+			<p:panel id="pnl" header="Alteração de Senha">
+				<h:panelGrid columns="2">
+
+					<h:outputText value="Senha atual:" />
+					<p:password id="senhaAtual" size="50" feedback="true"
+						promptLabel="#{messages['pw.promptLabel']}" weakLabel="#{messages['pw.weakLabel']}" 
+						goodLabel="#{messages['pw.goodLabel']}" strongLabel="#{messages['pw.strongLabel']}"
+						value="#{alterarSenhaMB.senhaAtual}" />
+
+					<h:outputText value="Nova senha:" />
+					<p:password id="senhaNova" size="50" feedback="true"
+						promptLabel="#{messages['pw.promptLabel']}" weakLabel="#{messages['pw.weakLabel']}" 
+						goodLabel="#{messages['pw.goodLabel']}" strongLabel="#{messages['pw.strongLabel']}"
+						value="#{alterarSenhaMB.senhaNova}" />
+
+					<h:outputText value="Confirmar nova senha:" />
+					<p:password id="confirmaSenhaNova" size="50" feedback="true"
+						promptLabel="#{messages['pw.promptLabel']}" weakLabel="#{messages['pw.weakLabel']}" 
+						goodLabel="#{messages['pw.goodLabel']}" strongLabel="#{messages['pw.strongLabel']}"
+						value="#{alterarSenhaMB.confirmaSenhaNova}" />
+
+				</h:panelGrid>
+				
+				<br />
+				
+				<div align="left">
+					<p:commandLink actionListener="#{alterarSenhaMB.alterarSenhaUsuario}"
+						update=":formMessage">
+						<p:commandButton value="Salvar" />
+					</p:commandLink>
+					<p:spacer width="5">
+					</p:spacer>
+					<p:commandButton type="reset" value="Limpar" title="Limpar" />
+				</div>
+			</p:panel>
+		</h:form>
+
+		<h:form id="formMessage">
+			<p:confirmDialog message="#{alterarSenhaMB.msgAlterarSenha}"
+				header="#{alterarSenhaMB.cabecalhoMsgAlterarSenha}" severity="alert"
+				widgetVar="dlgAlterarSenha" closable="false">
+				<p:commandButton value="Ok" onclick="PF('dlgAlterarSenha').hide()" type="button" />
+			</p:confirmDialog>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<p:confirmDialog id="msgDialogAlerta"
+		message="#{messages['ms.padrao.alertacadastro']}" header="Sucesso"
+		severity="alert" widgetVar="mensagemCamposObrigatorios">
+		<center>
+			<p:commandButton value="Ok"
+				onclick="PF('mensagemCamposObrigatorios').hide();" type="button" />
+		</center>
+	</p:confirmDialog>
+
+</ui:composition>

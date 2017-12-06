@@ -1,0 +1,2 @@
+wsimport -keep -p br.hfs.util.correio.ws https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl
+

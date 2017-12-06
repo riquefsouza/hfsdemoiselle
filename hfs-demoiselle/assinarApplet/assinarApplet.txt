@@ -1,0 +1,52 @@
+keytool -delete -noprompt -alias MyCert -storepass abcd1234
+
+keytool -genkey -keyalg rsa -alias MyCert
+
+
+E = riquefsouza@gmail.com
+CN = HENRIQUE FIGUEIREDO DE SOUZA
+OU = hfs
+O = hfs.com.br
+L = Rio de Janeiro
+S = RJ
+C = BR
+
+
+
+keytool -certreq -alias MyCert
+
+keytool -import -alias MyCert
+
+jar cvf C:\TestApplet.jar .
+
+jar tvf TestApplet.jar
+
+jarsigner C:\TestApplet.jar MyCert
+
+jarsigner -verify -verbose -certs d:\TestApplet.jar
+
+
+
+
+================
+
+keytool -genkey -keyalg rsa -alias myKeyName
+keytool -export -alias myKeyName -file myCertName.crt
+
+jarsigner "C:\my path\myJar.jar" myKeyName
+
+
+
+=============
+
+
+
+#!/bin/bash
+KEYSTORE=/home/user/NetBeansProjects/sign/keystore
+FILES=`find /home/user/NetBeansProjects/Project/dist/ -name "*.jar"`
+for f in $FILES; 
+   do echo password |  /usr/bin/jarsigner -keystore $KEYSTORE -verbose $f myself;
+   echo "Signed $f"; 
+  /usr/bin/jarsigner -verify -verbose -certs $f | grep X.509 | sort -u;
+done
+

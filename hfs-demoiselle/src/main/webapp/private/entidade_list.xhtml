@@ -1,0 +1,60 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form style="width: 50%">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton title="#{messages['button.new']}"
+						icon="ui-icon-document" action="#{entidadeListMB.getNextView}"
+						actionListener="#{entidadeListMB.clear}" ajax="false" />
+
+					<p:commandButton title="#{messages['button.delete']}"
+						icon="ui-icon-trash" onclick="PF('confirmation').show()" type="button"
+						immediate="true" ajax="false" />
+
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.alert']}!" severity="alert"
+						widgetVar="confirmation">
+
+						<h:commandButton value="#{messages['button.dialog.yes']}"
+							action="#{entidadeListMB.deleteSelection}"
+							actionListener="#{entidadeListMB.clear}" />
+						<h:commandButton value="#{messages['button.dialog.no']}"
+							onclick="PF('confirmation').hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable id="list" var="bean"
+				value="#{entidadeListMB.resultList}">
+				<f:facet name="header">#{messages['entidade.list.table.title']}</f:facet>
+				<p:column style="width:3%;">
+					<h:selectBooleanCheckbox
+						value="#{entidadeListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
+				</p:column>
+
+				<p:column style="width:5%;" sortBy="#{bean.id}">
+					<f:facet name="header">#{messages['entidade.label.id']}</f:facet>
+					<h:outputText value="#{bean.id}" />
+				</p:column>
+
+				<p:column sortBy="#{bean.nome}">
+					<f:facet name="header">#{messages['entidade.label.nome']}</f:facet>
+					<h:commandLink action="#{entidadeListMB.getNextView}"
+						actionListener="#{entidadeListMB.clear}">
+						<h:outputText value="#{bean.nome}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

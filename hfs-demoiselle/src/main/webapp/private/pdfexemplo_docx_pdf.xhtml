@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form enctype="multipart/form-data">
+			<h:outputText for="arquivoDOCX" value="Carregar Arquivo DOCX:" />
+			<p:fileUpload id="arquivoDOCX" mode="simple"
+				allowTypes="/(\.|\/)(docx)$/"
+				value="#{docxPdfView.arquivoDOCX}" />
+			<p:spacer />
+
+			<p:separator />
+			<p:commandButton value="Download do arquivo convertido para PDF" ajax="false"
+				onclick="PrimeFaces.monitorDownload(start, stop);"
+				icon="ui-icon-arrowthick-1-s">
+				<p:fileDownload value="#{docxPdfView.saida}" />
+			</p:commandButton>
+
+			<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+				draggable="false" closable="false" resizable="false">
+				<p:graphicImage value="/resources/images/loadingbar.gif" />
+			</p:dialog>
+
+		</h:form>
+		
+		<script type="text/javascript">
+			function start() {
+			    PF('statusDialog').show();
+			}
+			 
+			function stop() {
+			    PF('statusDialog').hide();
+			}
+		</script>
+		
+	</ui:define>
+</ui:composition>

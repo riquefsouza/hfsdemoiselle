@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:dataTable id="list" var="bean"
+				paginator="true" rows="10" pageLinks="10"
+				rowsPerPageTemplate="10,20,50,100,150,200,250"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"			
+				value="#{propSistemaMB.propriedadesSistema}"
+				emptyMessage="#{messages['main.nenhum.registro']}">
+				<f:facet name="header">#{messages['propsistema.list.table.title']}</f:facet>
+
+				<p:column sortBy="#{bean.nome}" style="width: 25%">
+					<f:facet name="header">#{messages['propsistema.label.nome']}</f:facet>
+					<h:outputText value="#{bean.nome}" />
+				</p:column>
+				<p:column sortBy="#{bean.valor}">
+					<f:facet name="header">#{messages['propsistema.label.valor']}</f:facet>
+					<h:outputText value="#{bean.valor}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

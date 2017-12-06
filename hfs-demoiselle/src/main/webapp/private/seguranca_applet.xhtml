@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<H1>HFS ASSINADOR</H1>
+			<!-- 
+			<a href="#{facesContext.externalContext.requestContextPath}/hfsAssinador.jnlp">HFS Assinar</a>
+			 -->
+			<p:commandButton value="HFS Assinar via JNLP" ajax="false" icon="ui-icon-arrowthick-1-s"> 
+				<p:fileDownload value="#{assinaturaView.jnlp}" />
+			</p:commandButton>	
+			<br />
+			<br />
+			<br />
+			<applet
+				codebase="#{facesContext.externalContext.requestContextPath}/"
+				code="br.hfs.util.assinatura.AssinaturaApplet"
+				width="700" height="550"
+				archive="assinador-applet.jar,javaws.jar,commons-io-2.5.jar">
+				<param name="teste" value="nada" />
+				Sem Applet
+			</applet>
+		</h:form>
+	</ui:define>
+</ui:composition>

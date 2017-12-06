@@ -1,0 +1,229 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form id="formUsuario" prependId="false"
+			enctype="multipart/form-data">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}"
+						icon="ui-icon-pencil" action="#{usuarioEditMB.insert}"
+						rendered="#{!usuarioEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}"
+						icon="ui-icon-pencil" action="#{usuarioEditMB.update}"
+						rendered="#{usuarioEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}"
+						icon="ui-icon-trash" rendered="#{usuarioEditMB.updateMode}"
+						onclick="PF('confirmation').show()" type="button" immediate="true"
+						ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						header="#{messages['label.dialog.delete']}" showEffect="fade"
+						hideEffect="fade" severity="alert" widgetVar="confirmation">
+						<p:commandButton value="#{messages['button.dialog.yes']}"
+							action="#{usuarioEditMB.delete}" immediate="true" ajax="false" />
+						<p:commandButton value="#{messages['button.dialog.no']}"
+							onclick="PF('confirmation').hide();" type="button" />
+					</p:confirmDialog>
+
+					<p:commandButton value="#{messages['button.back']}"
+						title="#{messages['button.back']}" icon="ui-icon-arrowthick-1-w"
+						action="#{usuarioEditMB.getPreviousView}" ajax="false" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<h:panelGrid columns="2">
+
+				<p:fieldset legend="#{messages['usuario.label']}"
+					style="height: 280px">
+					<h:panelGrid id="fieldsusuario" columns="3">
+
+						<p:outputLabel value="#{messages['usuario.label.id']}: " for="id"
+							styleClass="text-input" />
+						<h:outputText id="id" value="#{usuarioEditMB.bean.id}" />
+						<p:message for="id" />
+
+						<p:outputLabel value="#{messages['usuario.label.login']}: "
+							for="login" styleClass="text-input" />
+						<p:inputText id="login" value="#{usuarioEditMB.bean.login}"
+							size="50" title="#{messages['usuario.alt.login']}" />
+						<p:message for="login" />
+
+						<p:outputLabel value="#{messages['usuario.label.nome']}: "
+							for="nome" styleClass="text-input" />
+						<p:inputText id="nome" value="#{usuarioEditMB.bean.nome}"
+							size="100" title="#{messages['usuario.alt.nome']}" />
+						<p:message for="nome" />
+
+						<p:outputLabel value="#{messages['usuario.label.email']}: "
+							for="email" styleClass="text-input" />
+						<p:inputText id="email" value="#{usuarioEditMB.bean.email}"
+							size="100" title="#{messages['usuario.alt.email']}"
+							validatorMessage="E-mail incorreto">
+							<f:validateRegex
+								pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+						</p:inputText>
+						<p:message for="email" />
+
+						<p:outputLabel value="#{messages['usuario.label.cpf']}: "
+							for="cpf" styleClass="text-input" />
+						<p:inputMask id="cpf" value="#{usuarioEditMB.bean.cpf}"
+							title="#{messages['usuario.alt.cpf']}" mask="999.999.999-99" />
+						<p:message for="cpf" />
+
+						<p:outputLabel value="#{messages['usuario.label.foto']}: "
+							for="foto" styleClass="text-input" />
+
+						<p:fileUpload id="foto" mode="simple"
+							allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+							value="#{usuarioEditMB.arquivo}" />
+
+						<p:message for="foto" />
+
+						<p:outputLabel value="IMAGEM: " styleClass="text-input" />
+
+						<p:commandButton id="imageBtn" value="Visualiza a foto"
+							type="button" />
+						<p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade">
+							<!-- 
+					        <p:graphicImage value="#{usuarioEditMB.conteudo}" height="150" width="150" />
+					        -->
+							<p:graphicImage value="/temp/#{usuarioEditMB.conteudo}" />
+						</p:overlayPanel>
+
+						<!--
+						<p:graphicImage value="#{usuarioEditMB.conteudo}" height="150" binding="#{image}" />			        			
+						
+						 	
+			 			<script type="text/javascript">
+							function readPicture(input, output) {
+								if (input.files) {
+									if (input.files[0]) {
+										var reader = new FileReader();
+										reader.onload = function(e) {
+											output.attr('src', e.target.result);
+										};
+										reader.readAsDataURL(input.files[0]);
+									}
+								}
+							}
+				
+							$("[id='#{upload.clientId}']").change(function() {
+								readPicture(this, $("[id='#{image.clientId}']"));
+							});
+						</script>
+				 		-->
+
+					</h:panelGrid>
+				</p:fieldset>
+
+				<p:fieldset legend="#{messages['perfil.label']}"
+					style="height: 280px">
+					<p:pickList id="pickListPerfil" value="#{usuarioEditMB.perfilList}"
+						var="varPerfil" effect="bounce" itemValue="#{varPerfil}"
+						itemLabel="#{varPerfil}" converter="ConversorPerfil"
+						showSourceControls="true" showTargetControls="true"
+						showCheckbox="true" showSourceFilter="true"
+						showTargetFilter="true" filterMatchMode="contains"
+						immediate="true">
+						<f:facet name="sourceCaption">"#{messages['perfil.label']}"</f:facet>
+						<f:facet name="targetCaption"> #{messages['perfil.label']} "do(a)" #{messages['usuario.label']} </f:facet>
+						<p:ajax event="transfer" listener="#{usuarioEditMB.onTransfer}"
+							update="pickListPerfil" />
+					</p:pickList>
+				</p:fieldset>
+
+			</h:panelGrid>
+
+
+			<p:fieldset id="fieldAnexo" legend="Anexar Arquivos"
+				style="width:735px;">
+				<h:form id="fieldAnexo1" enctype="multipart/form-data">
+					<h:outputLabel value="#{messages['ms.msg.anexo']}"
+						style="color:#003399;font-weight:bold; "
+						rendered="#{usuarioEditMB.habilitarUpload}" />
+					<p:spacer width="10">
+					</p:spacer>
+					<p:fileUpload label="Escolher" uploadLabel="Anexar"
+						cancelLabel="Cancelar" fileLimit="5"
+						fileLimitMessage="Número máximo de arquivos excede a 5"
+						disabled="#{usuarioEditMB.desabilitaAnexo}"
+						invalidFileMessage="Tipo de arquivo inválido" id="upload"
+						fileUploadListener="#{usuarioEditMB.handleFileUpload}"
+						mode="advanced" update="listAnexo,upload" sizeLimit="4194304"
+						invalidSizeMessage="Tamanho do arquivo inválido, excede 4 Mbytes"
+						immediate="true" multiple="true"
+						allowTypes="/(\.|\/)(gif|jpe?g|png|txt|doc|docx|xls|xlsx|pdf|bmp|odt|ods|odb|odp|odd)$/"
+						ajax="true" />
+
+					<p:dataTable id="listAnexo" var="beanAnexo"
+						value="#{usuarioEditMB.listaAnexo}"
+						emptyMessage="#{messages['main.nenhum.registro']}">
+
+						<p:column sortBy="#{beanAnexo.nomeArquivo}">
+							<f:facet name="header">Arquivo(s) Anexado(s)</f:facet>
+							<h:outputText value="#{beanAnexo.nomeArquivo}" />
+						</p:column>
+
+						<p:column style="width:70px;" headerText="Download">
+							<center>
+								<h:commandButton image="/resources/images/baixar.png"
+									style="width:20px;height:20px" ajax="true"
+									
+									actionListener="#{usuarioEditMB.metodo(beanAnexo.nomeArquivo, beanAnexo.id)}">
+									<p:inputText value="#{usuarioEditMB.nomeArquivo}" id="arquivo"
+										rendered="false" />
+									<p:fileDownload value="#{usuarioEditMB.anexoConteudo}" />
+								</h:commandButton>
+							</center>
+						</p:column>
+
+						<p:column style="width:70px;" headerText="Remover">
+							<center>
+								<p:commandLink id="removerAnexo" oncomplete="PF('msgExclusao').show()" 
+									disabled="#{usuarioEditMB.desabilitaAnexo}">
+									<h:commandButton image="/resources/images/remover.png"
+										disabled="#{usuarioEditMB.desabilitaAnexo}" />
+									<f:setPropertyActionListener value="#{beanAnexo.id}"
+										target="#{usuarioEditMB.selectedItem}" />
+								</p:commandLink>
+							</center>
+						</p:column>
+					</p:dataTable>
+
+					<h:form id="formConfirmaExclusao">
+						<p:confirmDialog id="confirmaExclusao"
+							message="#{messages['ms.padrao.exclusaoanexo']}"
+							header="#{messages['ms.exclusao']}" severity="alert"
+							widgetVar="msgExclusao">
+							<center>
+								<h:form>
+									<p:commandLink id="remover"
+										actionListener="#{usuarioEditMB.removerAnexo}"
+										update=":formUsuario" ajax="true" onclick="PF('msgExclusao').hide()"
+										type="button">
+										<p:commandButton value="Ok" />
+									</p:commandLink>
+								</h:form>
+								<p:commandButton value="Cancelar" onclick="PF('msgExclusao').hide()"
+									type="button" />
+							</center>
+						</p:confirmDialog>
+					</h:form>
+
+				</h:form>
+			</p:fieldset>
+
+		</h:form>
+
+		<ui:include src="/private/template/mensagemSucesso.xhtml" />
+		<ui:include src="/private/template/mensagemFalha.xhtml" />
+		
+	</ui:define>
+</ui:composition>

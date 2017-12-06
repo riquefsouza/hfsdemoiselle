@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="assinador-frame" default="distribuir" basedir=".">
+
+	<!-- propriedades do projeto com os nomes dos diretorios -->
+	
+	<property name="src" value="${basedir}/target/classes" />
+	<property name="dist" value="${basedir}/src/main/webapp" />
+	
+	<property name="spacote" value="br/hfs/util" />
+	
+	<echo>Diretorio fonte: ${src}</echo>
+	<echo>Diretorio binarios: ${build}</echo>
+	<echo>Diretorio distribuicao: ${dist}</echo>
+
+	<target name="distribuir">
+		<echo>Gerando o .jar do projeto</echo>
+		<jar jarfile="${dist}/assinador-frame.jar" basedir="${src}" 
+			includes="${spacote}/certificado/*.class,${spacote}/security/*.class,${spacote}/assinatura/*.class,${spacote}/criptografia/*.class">			
+			<manifest>
+                <attribute name="Manifest-Version" value="1.0"/>
+                <attribute name="Application-Name" value="HFSAssinadorDigital"/>
+                <attribute name="Archiver-Version" value="Plexus Archiver"/>
+                <attribute name="Built-By" value="Henrique Figueiredo de Souza"/>
+                <attribute name="Class-Path" value=". javaws.jar commons-io-2.5.jar"/>
+                <attribute name="Created-By" value="Apache Maven 3.2.1"/>
+                <attribute name="Caller-Allowable-Codebase" value="*"/>
+                <attribute name="Trusted-Library" value="false"/>
+                <attribute name="Application-Library-Allowable-Codebase" value="*"/>
+                <attribute name="Trusted-Only" value="false"/>
+                <attribute name="Build-Jdk" value="1.7.0_79"/>
+                <attribute name="Permissions" value="all-permissions"/>
+                <attribute name="Codebase" value="*"/>
+				<attribute name="Main-Class" value="br.hfs.util.assinatura.AssinaturaFrame"/>				
+            </manifest>
+		</jar>
+	</target>
+
+</project>

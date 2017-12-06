@@ -1,0 +1,94 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.new']}" title="#{messages['button.new']}" 
+						icon="ui-icon-document" action="#{usuarioListMB.getNextView}"
+						actionListener="#{usuarioListMB.clear}" ajax="false" />
+
+					<p:commandButton value="#{messages['button.reportPDF']}" title="#{messages['button.reportPDF']}" 
+						icon="ui-icon-print" action="#{relatorioMB.mostrarPDF}"
+						ajax="false" />
+
+					<p:commandButton value="#{messages['button.reportODT']}" title="#{messages['button.reportODT']}" 
+						icon="ui-icon-print" action="#{relatorioMB.mostrarODT}"
+						ajax="false" />
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable id="list" var="bean"
+				value="#{usuarioListMB.resultList}"
+				paginator="true" rows="10" pageLinks="10"
+				rowsPerPageTemplate="10,20,50,100,150,200,250"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+				emptyMessage="#{messages['main.nenhum.registro']}">
+
+				<f:facet name="header">
+					<div style="height: 25px">
+						Lista dos Usuários
+						
+				        <p:commandButton id="toggler" type="button" value="Colunas" style="float:right" icon="ui-icon-calculator" />
+				        <p:columnToggler datasource="list" trigger="toggler" />
+			        </div>
+			    </f:facet>
+
+				<f:facet name="{Exporters}">
+					<h:commandLink>
+						<p:graphicImage value="/resources/images/excel.png" width="24" />
+						<p:dataExporter type="xls" target="list" fileName="usuarios" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage value="/resources/images/pdf.png" width="24" />
+						<p:dataExporter type="pdf" target="list" fileName="usuarios" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage value="/resources/images/csv.png" width="24" />
+						<p:dataExporter type="csv" target="list" fileName="usuarios" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage value="/resources/images/xml.png" width="24" />
+						<p:dataExporter type="xml" target="list" fileName="usuarios" />
+					</h:commandLink>
+				</f:facet>
+				<p:column sortBy="#{bean.login}">
+					<f:facet name="header">
+						<h:outputText value="#{messages['usuario.label.login']}" />
+					</f:facet>
+					<h:commandLink action="#{usuarioListMB.getNextView}"
+						actionListener="#{usuarioListMB.clear}">
+						<h:outputText value="#{bean.login}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+				<p:column sortBy="#{bean.nome}">
+					<f:facet name="header">
+						<h:outputText value="#{messages['usuario.label.nome']}" />
+					</f:facet>
+					<h:commandLink action="#{usuarioListMB.getNextView}"
+						actionListener="#{usuarioListMB.clear}">
+						<h:outputText value="#{bean.nome}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+
+				<p:column sortBy="#{bean.email}">
+					<f:facet name="header">
+						<h:outputText value="#{messages['usuario.label.email']}" />
+					</f:facet>
+					<h:commandLink action="#{usuarioListMB.getNextView}"
+						actionListener="#{usuarioListMB.clear}">
+						<h:outputText value="#{bean.email}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,167 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+		<p:menubar rendered="#{securityContext.loggedIn}">
+			<p:submenu label="Cadastros">
+			
+				<p:submenu label="#{messages['menu.usuario']}">
+					<p:menuitem value="#{messages['menu.menuitem.new']}"
+						url="/private/usuario_edit.jsf"></p:menuitem>
+					<p:menuitem value="#{messages['menu.menuitem.list']}"
+						url="/private/usuario_list.jsf"></p:menuitem>
+				</p:submenu>
+				
+				<p:submenu label="#{messages['menu.perfil']}">
+					<p:menuitem value="#{messages['menu.menuitem.new']}"
+						url="/private/perfil_edit.jsf"></p:menuitem>
+					<p:menuitem value="#{messages['menu.menuitem.list']}"
+						url="/private/perfil_list.jsf"></p:menuitem>
+				</p:submenu>
+
+				<p:submenu label="#{messages['menu.permissao']}">
+					<p:menuitem value="#{messages['menu.menuitem.new']}"
+						url="/private/permissao_edit.jsf"></p:menuitem>
+					<p:menuitem value="#{messages['menu.menuitem.list']}"
+						url="/private/permissao_list.jsf"></p:menuitem>
+				</p:submenu>
+
+				<p:submenu label="#{messages['menu.entidade']}">
+					<p:menuitem value="#{messages['menu.menuitem.new']}"
+						url="/private/entidade_edit.jsf"></p:menuitem>
+					<p:menuitem value="#{messages['menu.menuitem.list']}"
+						url="/private/entidade_list.jsf"></p:menuitem>
+				</p:submenu>
+
+			</p:submenu>
+
+			<p:submenu label="#{messages['menu.funcionalidades']}">
+				<p:menuitem value="#{messages['menu.propsistema']}"
+					url="/private/propsistema_list.jsf" />			
+				<p:menuitem value="#{messages['menu.usuariolazy']}"
+					url="/private/usuario_lazylist.jsf" />			
+				<p:menuitem value="#{messages['menu.ldaplista']}"
+					url="/private/ldap_list.jsf" />			
+				<p:menuitem value="#{messages['menu.feriadolista']}"
+					url="/private/feriado_list.jsf" />			
+				<p:menuitem value="#{messages['menu.extensolista']}"
+					url="/private/extenso_list.jsf" />
+				<p:menuitem value="#{messages['menu.pagina_email']}"
+					url="/private/pagina_email.jsf" />
+				<p:menuitem value="#{messages['menu.pagina_ftp']}"
+					url="/private/pagina_ftp.jsf" />
+			</p:submenu>
+
+			<p:submenu label="#{messages['menu.exemplos']}">
+				<p:menuitem value="#{messages['menu.exemplo_download']}"
+					url="/private/exemplo_download.jsf" />
+				<p:menuitem value="#{messages['menu.exemplo_chart']}"
+					url="/private/exemplo_chart.jsf" />
+				<p:menuitem value="#{messages['menu.exemplo_upload']}"
+					url="/private/exemplo_upload.jsf" />
+				<p:menuitem value="#{messages['menu.exemplo_editor']}"
+					url="/private/exemplo_editor.jsf" />
+				<p:menuitem value="#{messages['menu.exemplo_graphicImage']}"
+					url="/private/exemplo_graphicImage.jsf" />
+				<p:menuitem value="#{messages['menu.exemplo_graficos']}"
+					url="/private/exemplo_graficos.jsf" />
+				<p:menuitem value="#{messages['menu.exemplo_barcode']}"
+					url="/private/exemplo_barcode.jsf" />
+				<p:menuitem value="#{messages['menu.exemplo_arvore']}"
+					url="/private/exemplo_arvore.jsf" />
+				<p:menuitem value="#{messages['menu.exemplo_feedreader']}"
+					url="/private/exemplo_feedreader.jsf" />
+				<p:menuitem value="#{messages['menu.exemplo_barraprogresso']}"
+					url="/private/exemplo_barraprogresso.jsf" />
+				<p:menuitem value="#{messages['menu.exemplo_recaptcha']}"
+					url="/private/exemplo_recaptcha.jsf" />
+				<p:menuitem value="#{messages['menu.exemplo_responsivo']}"
+					url="/private/exemplo_responsivo.jsf" />
+				<p:menuitem value="#{messages['menu.exemplo_calculadora']}"
+					url="/private/exemplo_calculadora.jsf" />
+			</p:submenu>
+
+			<p:submenu label="#{messages['menu.seguranca']}">
+				<p:menuitem value="#{messages['menu.seguranca_hashsimples']}"
+					url="/private/seguranca_hashsimples.jsf" />
+				<p:menuitem value="#{messages['menu.seguranca_hashsimples_demoiselle']}"
+					url="/private/seguranca_hashsimples_demoiselle.jsf" />
+				<p:menuitem value="#{messages['menu.seguranca_criptografia']}"
+					url="/private/seguranca_criptografia.jsf" />
+				<p:menuitem value="#{messages['menu.seguranca_criptografia_demoiselle']}"
+					url="/private/seguranca_criptografia_demoiselle.jsf" />
+				<p:menuitem value="#{messages['menu.seguranca_criptografia_assimetrica']}"
+					url="/private/seguranca_criptografia_assimetrica.jsf" />
+				<p:menuitem value="#{messages['menu.seguranca_criptografia_assimetrica_demoiselle']}"
+					url="/private/seguranca_criptografia_assimetrica_demoiselle.jsf" />
+				<p:menuitem value="#{messages['menu.seguranca_certificado']}"
+					url="/private/seguranca_certificado.jsf" />					
+				<p:menuitem value="#{messages['menu.seguranca_certificado_demoiselle']}"
+					url="/private/seguranca_certificado_demoiselle.jsf" />					
+				<p:menuitem value="#{messages['menu.seguranca_assinatura']}"
+					url="/private/seguranca_assinatura.jsf" />					
+				<p:menuitem value="#{messages['menu.seguranca_applet']}"
+					url="/private/seguranca_applet.jsf" />										
+				<p:menuitem value="#{messages['menu.seguranca_assinatura_upload']}"
+					url="/private/seguranca_assinatura_upload.jsf" />					
+			</p:submenu>
+
+			<p:submenu label="#{messages['menu.apiexemplos']}">
+				<p:menuitem value="#{messages['menu.apiexemplo_mapa']}"
+					url="/private/apiexemplo_mapa.jsf" />
+				<p:menuitem value="#{messages['menu.apiexemplo_zip']}"
+					url="/private/apiexemplo_zip.jsf" />
+				<p:menuitem value="#{messages['menu.apiexemplo_report']}"
+					url="/private/apiexemplo_report.jsf" />
+				<p:menuitem value="#{messages['menu.apiexemplo_barcode']}"
+					url="/private/apiexemplo_barcode.jsf" />
+				<p:menuitem value="#{messages['menu.apiexemplo_chart']}"
+					url="/private/apiexemplo_chart.jsf" />
+				<p:menuitem value="#{messages['menu.apiexemplo_rss']}"
+					url="/private/apiexemplo_rss.jsf" />
+				<p:menuitem value="#{messages['menu.apiexemplo_jcaptcha']}"
+					url="/private/apiexemplo_jcaptcha.jsf" />
+				<p:menuitem value="#{messages['menu.apiexemplo_template']}"
+					url="/private/apiexemplo_template.jsf" />
+				<p:menuitem value="#{messages['menu.apiexemplo_textsearch']}"
+					url="/private/apiexemplo_textsearch.jsf" />
+				<p:menuitem value="#{messages['menu.apiexemplo_tts']}"
+					url="/private/apiexemplo_tts.jsf" />
+			</p:submenu>
+			
+			<p:submenu label="#{messages['menu.pdfexemplos']}">
+				<p:menuitem value="#{messages['menu.pdfexemplo_texto']}"
+					url="/private/pdfexemplo_texto.jsf" />
+				<p:menuitem value="#{messages['menu.pdfexemplo_docx_pdf']}"
+					url="/private/pdfexemplo_docx_pdf.jsf" />
+				<p:menuitem value="#{messages['menu.pdfexemplo_odt_pdf']}"
+					url="/private/pdfexemplo_odt_pdf.jsf" />
+				<p:menuitem value="#{messages['menu.pdfexemplo_pdf_docx']}"
+					url="/private/pdfexemplo_pdf_docx.jsf" />
+				<p:menuitem value="#{messages['menu.pdfexemplo_assinar']}"
+					url="/private/pdfexemplo_assinar.jsf" />
+				<p:menuitem value="#{messages['menu.pdfexemplo_assinarImagem']}"
+					url="/private/pdfexemplo_assinarImagem.jsf" />
+			</p:submenu>			
+			
+			<p:submenu label="#{messages['menu.correio']}">
+				<p:menuitem value="#{messages['menu.correio_edit']}"
+					url="/private/correio_edit.jsf" />
+				<p:menuitem value="#{messages['menu.correio_list']}"
+					url="/private/correio_lazylist.jsf" />
+				<p:menuitem value="#{messages['menu.correio_list_json']}"
+					url="/private/correio_list_json.jsf" />
+			</p:submenu>
+
+			<p:menuitem value="#{messages['menu.alterar_senha']}"
+				url="/private/alterar_senha.jsf" />
+
+			<p:menuitem value="#{messages['menu.menuitem.quit']}"
+				action="#{securityContext.logout}" />
+		</p:menubar>
+	</h:form>
+
+</ui:composition>

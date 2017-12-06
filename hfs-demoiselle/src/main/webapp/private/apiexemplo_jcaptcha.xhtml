@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:graphicImage value="/jcaptcha.jpg" />
+			<p:spacer />
+			<br />
+			<p:outputLabel value="Texto: "
+				for="texto" styleClass="text-input" />		
+			<p:inputText id="texto" value="#{jCaptchaView.texto}" size="15" />
+			<p:spacer />
+			<p:commandButton value="Validar" ajax="false"
+				actionListener="#{jCaptchaView.validar()}" />
+			
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

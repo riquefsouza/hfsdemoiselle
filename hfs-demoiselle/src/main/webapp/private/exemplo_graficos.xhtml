@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:tabView>
+				<p:tab title="Gráfico de Área">
+					<p:chart type="line" model="#{graficoView.areaModel}" style="height:300px" />
+				</p:tab>
+				<p:tab title="Gráfico de Barra">
+					<p:chart type="bar" model="#{graficoView.barModel}" style="height:300px"/>
+					<p:spacer height="30" />
+					<p:chart type="bar" model="#{graficoView.horizontalBarModel}" style="height:300px"/>
+				</p:tab>
+				<p:tab title="Gráfico de Linha">
+					<p:chart type="line" model="#{graficoView.lineModel1}" style="height:300px;"/>
+					<p:spacer height="30" />
+ 					<p:chart type="line" model="#{graficoView.lineModel2}" style="height:300px;"/>
+				</p:tab>
+				<p:tab title="Gráfico de Torta">
+					<p:chart type="pie" model="#{graficoView.pieModel1}" style="width:400px;height:300px" />
+					<p:spacer height="30" />
+					<p:chart type="pie" model="#{graficoView.pieModel2}" style="width:400px;height:300px" />
+				</p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>

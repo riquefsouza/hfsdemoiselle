@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<h3>Calculadora em JQuery</h3>
+			<h:panelGrid id="panelCalc" columns="2">
+				<h:outputText value="Calculadora Básica:" />
+				<input type="text" id="basicCalculator" />
+
+				<h:outputText value="Calculadora Científica:" />
+				<input type="text" id="sciCalculator" />
+			</h:panelGrid>
+		</h:form>
+
+		<h:outputScript library="calculator" name="jquery.plugin.js" />
+		<h:outputScript library="calculator" name="jquery.calculator.js" />
+		<h:outputScript library="calculator" name="jquery.calculator-pt-BR.js" />
+
+		<script>
+			$(function () {
+				$.calculator.setDefaults({
+					showOn: 'both', buttonImageOnly: true, 
+					buttonImage: '#{facesContext.externalContext.requestContextPath}/resources/calculator/calculator.png'});
+				$('#basicCalculator').calculator();
+				$('#sciCalculator').calculator({layout: $.calculator.scientificLayout});
+			});
+		</script>
+
+	</ui:define>
+</ui:composition>

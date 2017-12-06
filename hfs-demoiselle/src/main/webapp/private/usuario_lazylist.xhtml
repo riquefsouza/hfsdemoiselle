@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="form">
+			<h3>Carregando a lista completa (Paginada somente no cliente)</h3>
+			<h:outputText value="Número Total de Linhas: " />
+			<h:outputText value="#{usuarioLazyView.totalLinhas}" />
+			
+			<p:separator />
+		
+			<p:dataTable var="usuario" value="#{usuarioLazyView.lazyModel}"
+				paginator="true" rows="10"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="10,20,50,100,150,200,250" selectionMode="single"
+				selection="#{usuarioLazyView.selectedUsuario}" id="usuarioTable"
+				lazy="true" emptyMessage="#{messages['main.nenhum.registro']}">
+				<p:ajax event="rowSelect" listener="#{usuarioLazyView.onRowSelect}"
+					update=":form:usuarioDetail"
+					oncomplete="PF('usuarioDialog').show()" />
+				<p:column headerText="Id" sortBy="#{usuario.id}"
+					filterBy="#{usuario.id}" style="width: 15%">
+					<h:outputText value="#{usuario.id}" />
+				</p:column>
+				<p:column headerText="Login" sortBy="#{usuario.login}"
+					filterBy="#{usuario.login}">
+					<h:outputText value="#{usuario.login}" />
+				</p:column>
+				<p:column headerText="Nome" sortBy="#{usuario.nome}"
+					filterBy="#{usuario.nome}">
+					<h:outputText value="#{usuario.nome}" />
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog header="Usuario Detalhes" widgetVar="usuarioDialog"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="usuarioDetail" style="text-align:center;">
+					<p:panelGrid columns="2"
+						rendered="#{not empty usuarioLazyView.selectedUsuario}"	columnClasses="label,value">
+
+						<h:outputText value="Id:" />
+						<h:outputText value="#{usuarioLazyView.selectedUsuario.id}" />
+
+						<h:outputText value="Login:" />
+						<h:outputText value="#{usuarioLazyView.selectedUsuario.login}" />
+
+						<h:outputText value="Nome:" />
+						<h:outputText value="#{usuarioLazyView.selectedUsuario.nome}"
+							style="color:#{dtLazyView.selectedUsuario.color}" />
+
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

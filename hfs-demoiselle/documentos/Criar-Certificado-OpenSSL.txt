@@ -1,0 +1,45 @@
+cd C:\Demoiselle\workspace\hfs-demoiselle\certificado
+
+1) Gerando uma chave privada RSA
+
+C:\OpenSSL-Win32\bin\openssl.exe genrsa -out chave_privada.key 1024
+
+2) Gerar uma solicitação de assinatura do certificado:
+
+C:\OpenSSL-Win32\bin\openssl.exe req -new -key chave_privada.key -out requisicao.csr -config C:\OpenSSL-Win32\bin\openssl.cfg
+
+E = riquefsouza@gmail.com
+CN = HENRIQUE FIGUEIREDO DE SOUZA
+OU = hfs
+O = hfs.com.br
+L = Rio de Janeiro
+S = RJ
+C = BR
+
+
+3) Gerar um certificado auto-assinado público com base na solicitação:
+
+C:\OpenSSL-Win32\bin\openssl.exe x509 -req -days 3650 -in requisicao.csr -signkey chave_privada.key -out certificado.crt
+
+
+4) Gerar um arquivo PKCS#12:
+
+C:\OpenSSL-Win32\bin\openssl.exe pkcs12 -keypbe PBE-SHA1-3DES -certpbe PBE-SHA1-3DES -export -in certificado.crt -inkey chave_privada.key -out arquivo_pkcs12.pfx -name "HENRIQUE FIGUEIREDO DE SOUZA"
+
+
+
+
+
+
+
+Convert a DER file (.crt .cer .der) to PEM
+openssl x509 -inform der -in certificate.cer -out certificate.pem
+
+C:\OpenSSL-Win32\bin\openssl.exe x509 -inform der -in certificadoHenrique.cer -out certificadoHenrique.pem
+
+Check a certificate
+openssl x509 -in certificate.crt -text -noout
+
+C:\OpenSSL-Win32\bin\openssl.exe x509 -in certificadoHenrique.pem -text -noout
+
+

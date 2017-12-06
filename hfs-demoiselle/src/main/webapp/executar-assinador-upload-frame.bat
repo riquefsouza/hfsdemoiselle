@@ -1,0 +1,1 @@
+java -jar assinador-upload-frame.jar http://localhost:8080/demoiselle

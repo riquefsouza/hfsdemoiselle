@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid id="gridUrl" columns="3">
+				<p:outputLabel value="URL: " for="urlToRead" styleClass="text-input" />
+				<p:inputText id="urlToRead" value="#{rssView.urlToRead}" size="120"
+					required="true" />
+				<p:message for="urlToRead" />
+
+				<p:outputLabel value="Carregar Proxy: " for="carregarProxy"
+					styleClass="text-input" />
+				<p:selectBooleanCheckbox id="carregarProxy"
+					value="#{rssView.carregarProxy}">
+					<p:ajax event="change" update="camposProxy,btnCarregar" />
+				</p:selectBooleanCheckbox>
+				<p:message for="carregarProxy" />
+
+				<p:spacer />
+				<p:commandButton id="btnCarregar" value="Carregar RSS"
+					action="#{rssView.carregar}" ajax="false" update="listaRss"
+					disabled="#{rssView.carregarProxy}" />
+				<p:spacer />
+
+			</h:panelGrid>
+
+			<p:spacer />
+			<p:fieldset id="camposProxy" widgetVar="wcamposProxy"
+				legend="Usar Proxy" collapsed="false" toggleable="true">
+				<h:panelGrid id="gridProxy" columns="3">
+					<p:outputLabel value="Proxy Host: " for="hostProxy"
+						styleClass="text-input" />
+					<p:inputText id="hostProxy" value="#{rssView.hostProxy}" size="50"
+						required="true" disabled="#{not rssView.carregarProxy}" />
+					<p:message for="hostProxy" />
+
+					<p:outputLabel value="Proxy Porta: " for="portProxy"
+						styleClass="text-input" />
+					<p:spinner id="portProxy" value="#{rssView.portProxy}"
+						minValue="8000" maxValue="9999" size="50" required="true"
+						disabled="#{not rssView.carregarProxy}" />
+					<p:message for="portProxy" />
+
+					<p:outputLabel value="Proxy Login: " for="loginProxy"
+						styleClass="text-input" />
+					<p:inputText id="loginProxy" value="#{rssView.loginProxy}"
+						size="50" required="true" disabled="#{not rssView.carregarProxy}" />
+					<p:message for="loginProxy" />
+
+					<p:outputLabel value="Proxy Senha: " for="senhaProxy"
+						styleClass="text-input" />
+					<p:password id="senhaProxy" value="#{rssView.senhaProxy}" size="50"
+						required="true" disabled="#{not rssView.carregarProxy}" />
+					<p:message for="senhaProxy" />
+
+					<p:spacer />
+
+					<p:commandButton value="Carregar RSS com Proxy"
+						action="#{rssView.carregarComProxy}" ajax="false" id="btnRssProxy"
+						update="listaRss" disabled="#{not rssView.carregarProxy}" />
+					<p:spacer />
+
+				</h:panelGrid>
+			</p:fieldset>
+			<p:spacer />
+
+			<p:dataList id="listaRss" value="#{rssView.listaItems}" var="item"
+				type="unordered" itemType="none"
+				emptyMessage="#{messages['main.nenhum.registro']}">
+				<h:outputText value="Título: " style="font-weight: bold" />
+				<h:outputText value="#{item.titulo}" />
+				<br />
+				<h:outputText value="Link: " style="font-weight: bold" />
+				<a href="#{item.link}">#{item.link}</a>
+				<br />
+				<h:outputText value="Autor: " style="font-weight: bold" />
+				<h:outputText value="#{item.autor}" style="font-weight: bold" />
+				<br />
+				<h:outputText value="Data de Publicação: " style="font-weight: bold" />
+				<h:outputText value="#{item.dataPublicacao}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy hh:mm:ss" />
+				</h:outputText>
+				<br />
+				<h:outputText value="Descrição: " style="font-weight: bold" />
+				<h:outputText value="#{item.descricao}" escape="false" />
+				<p:separator />
+			</p:dataList>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

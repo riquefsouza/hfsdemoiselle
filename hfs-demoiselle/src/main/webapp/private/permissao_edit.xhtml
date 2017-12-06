@@ -1,0 +1,79 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{permissaoEditMB.insert}"
+						rendered="#{!permissaoEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{permissaoEditMB.update}"
+						rendered="#{permissaoEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}"
+						onclick="PF('confirmation').show()"
+						rendered="#{permissaoEditMB.updateMode}" type="button"
+						immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert"
+						widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}"
+							action="#{permissaoEditMB.delete}" immediate="true" ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}"
+							onclick="PF('confirmation').hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['permissao.label']}" toggleable="true"
+				toggleSpeed="500">
+				<h:panelGrid id="fieldspermissao" columns="3">
+
+					<h:outputLabel value="#{messages['permissao.label.id']}: " for="id"
+						styleClass="text-input" />
+
+					<h:outputText id="id" value="#{permissaoEditMB.bean.id}" />
+
+					<p:message for="id" />
+
+					<h:outputLabel value="#{messages['permissao.label.permissao']}: "
+						for="permissao" styleClass="text-input" />
+
+					<p:inputText id="permissao"
+						value="#{permissaoEditMB.bean.permissao}"
+						title="#{messages['permissao.alt.permissao']}" />
+
+					<p:message for="permissao" />
+
+				</h:panelGrid>
+			</p:fieldset>
+
+			<p:fieldset legend="#{messages['entidadePerfil.label']}"
+				toggleable="true">
+				<p:pickList id="pickListEntidadePerfil"
+					value="#{permissaoEditMB.entidadePerfilList}"
+					var="varEntidadePerfil" effect="bounce"
+					itemValue="#{varEntidadePerfil}" itemLabel="#{varEntidadePerfil}"
+					converter="ConversorEntidadePerfil" showSourceControls="true"
+					showTargetControls="true" showCheckbox="true"
+					showSourceFilter="true" showTargetFilter="true"
+					filterMatchMode="contains" immediate="true">
+					<f:facet name="sourceCaption">"#{messages['entidadePerfil.label']}"</f:facet>
+					<f:facet name="targetCaption"> #{messages['entidadePerfil.label']} "do(a)" #{messages['permissao.label']} </f:facet>
+					<p:ajax event="transfer" listener="#{permissaoEditMB.onTransfer}"
+						update="pickListEntidadePerfil" />
+				</p:pickList>
+			</p:fieldset>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

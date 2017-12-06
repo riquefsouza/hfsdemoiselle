@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<p:feedReader value="http://rss.news.yahoo.com/rss/sports" var="feed">
+			<h:outputText value="#{feed.title}"
+				style="font-weight: bold;display:block" />
+			<h:outputText value="#{feed.description.value}" escape="false" />
+			<p:separator />
+		</p:feedReader>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,32 @@
+sunjce_provider.jar #
+
+The com.sun.crypto.provider.SunJCE class is part of the <JAVA_HOME>jre/lib/ext directory. In order to scan and load the ext directory we needed to add a MANIFEST.MF to the war file with the following content:
+
+Extension-List: crypto
+crypto-Extension-Name: javax.crypto
+With that web project scans the ext dir and then finds the sunjce_provider.jar that has a MANIFEST.MF that declares extension. Note that there is a '\n' after javax.crypto!
+
+ClassNotFoundException: com.sun.crypto.provider.SunJCE #
+
+This exception may occur on JBoss AS 7.1.1 and JDK 7. The solution is to edit file:
+
+$JBOSS_HOME/modules/sun/jdk/main/module.xml
+
+and add following lines on appropriate place:
+
+<path name="sun/security"/>
+<path name="sun/security/util"/>
+<path name="sun/security/krb5"/>
+<path name="sun/security/x509"/>
+<path name="sun/security/pkcs"/>
+<path name="sun/util"/>
+<path name="sun/util/calendar"/>
+<path name="sun/util/locale"/>
+<path name="sun/security/provider"/>
+<path name="com/sun/image"/>
+<path name="com/sun/image/codec"/>
+<path name="com/sun/image/codec/jpeg"/>
+<path name="com/sun/crypto"/>
+<path name="com/sun/crypto/provider"/>
+<path name="META-INF/services"/>
+

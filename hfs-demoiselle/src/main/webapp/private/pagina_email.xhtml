@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="3" cellpadding="5" styleClass="ui-grid">
+				<h:outputText for="emailPara" value="Para: " />
+				<p:inputText id="emailPara" value="#{emailMB.emailPara}" size="80"
+					maxlength="100" title="Para: " validatorMessage="E-mail incorreto">
+					<f:validateRegex
+						pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+				</p:inputText>
+				<p:message for="emailPara" />
+
+				<h:outputText for="emailCc" value="Cc: " />
+				<p:inputText id="emailCc" value="#{emailMB.emailCc}" size="80"
+					title="Cc: " maxlength="100" />
+				<p:message for="emailCc" />
+
+				<h:outputText for="emailAssunto" value="Assunto: " />
+				<p:inputText id="emailAssunto" value="#{emailMB.emailAssunto}"
+					size="80" title="Assunto: " maxlength="255" />
+				<p:message for="emailAssunto" />
+			</h:panelGrid>
+			
+			<p:spacer />
+			<p:editor id="editor" widgetVar="editorWidget"
+				value="#{emailMB.emailTexto}" width="600" />
+			
+			<p:spacer />
+			<p:spacer />
+			<p:commandButton value="Enviar email" title="Enviar email"
+				action="#{emailMB.enviarEmail()}" ajax="false" />
+
+		</h:form>
+	</ui:define>
+</ui:composition>

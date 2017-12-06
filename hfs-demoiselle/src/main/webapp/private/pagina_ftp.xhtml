@@ -1,0 +1,115 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="2">
+
+				<h:panelGrid id="gridFTP" columns="3">
+					<p:outputLabel value="Servidor: " for="servidorFTP"
+						styleClass="text-input" />
+					<p:inputText id="servidorFTP" value="#{ftpMB.servidorFTP}"
+						size="50" required="true" />
+					<p:message for="servidorFTP" />
+
+					<p:outputLabel value="Login: " for="usuarioFTP"
+						styleClass="text-input" />
+					<p:inputText id="usuarioFTP" value="#{ftpMB.usuarioFTP}" size="50"
+						required="true" />
+					<p:message for="usuarioFTP" />
+
+					<p:outputLabel value="senha: " for="senhaFTP"
+						styleClass="text-input" />
+					<p:password id="senhaFTP" value="#{ftpMB.senhaFTP}" size="50"
+						required="true" />
+					<p:message for="senhaFTP" />
+
+					<p:outputLabel value="Diretório: " for="dirInicialFTP"
+						styleClass="text-input" />
+					<p:inputText id="dirInicialFTP" value="#{ftpMB.dirInicialFTP}"
+						size="50" required="true" />
+					<p:message for="dirInicialFTP" />
+
+					<p:outputLabel value="Carregar Proxy: " for="carregarProxy"
+						styleClass="text-input" />
+					<p:selectBooleanCheckbox id="carregarProxy"
+						value="#{ftpMB.carregarProxy}">
+						<p:ajax event="change" update="camposProxy,btnCarregar" />
+					</p:selectBooleanCheckbox>
+					<p:message for="carregarProxy" />
+
+					<p:spacer />
+					<p:commandButton id="btnCarregar" value="Carregar FTP"
+						action="#{ftpMB.carregar}" ajax="false" update="listaFTP"
+						disabled="#{ftpMB.carregarProxy}" />
+					<p:spacer />
+				</h:panelGrid>
+
+
+				<p:fieldset id="camposProxy" widgetVar="wcamposProxy"
+					legend="Usar Proxy">
+					<h:panelGrid id="gridProxy" columns="3">
+						<p:outputLabel value="Proxy Host: " for="hostProxy"
+							styleClass="text-input" />
+						<p:inputText id="hostProxy" value="#{ftpMB.hostProxy}" size="50"
+							required="true" disabled="#{not ftpMB.carregarProxy}" />
+						<p:message for="hostProxy" />
+
+						<p:outputLabel value="Proxy Porta: " for="portProxy"
+							styleClass="text-input" />
+						<p:spinner id="portProxy" value="#{ftpMB.portProxy}"
+							minValue="8000" maxValue="9999" size="50" required="true"
+							disabled="#{not ftpMB.carregarProxy}" />
+						<p:message for="portProxy" />
+
+						<p:outputLabel value="Proxy Login: " for="loginProxy"
+							styleClass="text-input" />
+						<p:inputText id="loginProxy" value="#{ftpMB.loginProxy}" size="50"
+							required="true" disabled="#{not ftpMB.carregarProxy}" />
+						<p:message for="loginProxy" />
+
+						<p:outputLabel value="Proxy Senha: " for="senhaProxy"
+							styleClass="text-input" />
+						<p:password id="senhaProxy" value="#{ftpMB.senhaProxy}" size="50"
+							required="true" disabled="#{not ftpMB.carregarProxy}" />
+						<p:message for="senhaProxy" />
+
+						<p:spacer />
+
+						<p:commandButton value="Carregar FTP com Proxy"
+							action="#{ftpMB.carregarComProxy}" ajax="false" id="btnFtpProxy"
+							update="listaFTP" disabled="#{not ftpMB.carregarProxy}" />
+						<p:spacer />
+
+					</h:panelGrid>
+				</p:fieldset>
+			</h:panelGrid>
+
+			<table>
+				<tr>
+					<td><h:outputText value="Tipo" /></td>
+					<td><h:outputText value="Nome" /></td>
+					<td><h:outputText value="Data de Modificação" /></td>
+					<td><h:outputText value="Tamanho" /></td>
+				</tr>
+				<ui:repeat value="#{ftpMB.listaArquivos}" var="item">
+					<tr>
+						<td><h:outputText value="#{item.tipo}" /></td>
+						<td><p:commandLink>
+								<h:outputText value="#{item.nome}" />
+							</p:commandLink></td>
+						<td><h:outputText value="#{item.data}">
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy hh:mm:ss" />
+							</h:outputText></td>
+						<td><h:outputText value="#{item.tamanho}" /></td>
+					</tr>
+				</ui:repeat>
+			</table>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

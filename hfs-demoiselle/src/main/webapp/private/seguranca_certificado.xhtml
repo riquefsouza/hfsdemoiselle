@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form enctype="multipart/form-data">
+			<h:panelGrid columns="2">
+				<h:outputText for="arquivo" value="Arquivo do Certificado X509 (.cer):" />
+				<p:fileUpload id="arquivo" mode="simple"
+					allowTypes="/(\.|\/)(cer)$/"
+					value="#{certificadoView.arquivo}" />
+				<p:spacer />
+				<p:commandButton value="Visualizar" action="#{certificadoView.gerar}"
+					ajax="false" />
+			</h:panelGrid>
+			<p:spacer />
+			<p:dataTable id="list" var="bean" value="#{certificadoView.lista}"
+				emptyMessage="#{messages['main.nenhum.registro']}">
+				<f:facet name="header">Lista de Informações do Certificado Digital</f:facet>
+
+				<p:column sortBy="#{bean.item}" style="width: 25%">
+					<f:facet name="header">Item</f:facet>
+					<h:outputText value="#{bean.item}" />
+				</p:column>
+				<p:column sortBy="#{bean.descricao}">
+					<f:facet name="header">Descrição</f:facet>
+					<h:outputText value="#{bean.descricao}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

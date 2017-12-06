@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<h3>Selecione o intervalo de anos</h3>
+			<h:panelGrid columns="1" style="margin-bottom: 10px">
+				<h:outputText id="displayRange"
+					value="Entre #{feriadoMB.anoInicial} e #{feriadoMB.anoFinal}" />
+				<p:slider for="txtInicial,txtFinal" display="displayRange"
+					style="width: 400px" range="true"
+					displayTemplate="Entre {min} e {max}" minValue="2010"
+					maxValue="2020" />
+
+				<p:commandButton value="Regerar" title="Regerar"
+					action="#{feriadoMB.gerar}" ajax="false" />
+
+			</h:panelGrid>
+			<h:inputHidden id="txtInicial" value="#{feriadoMB.anoInicial}" />
+			<h:inputHidden id="txtFinal" value="#{feriadoMB.anoFinal}" />
+
+			<p:dataTable var="bean" value="#{feriadoMB.lista}" scrollable="true"
+				scrollHeight="230"
+				emptyMessage="#{messages['main.nenhum.registro']}">
+				<p:column headerText="Nome">
+					<h:outputText value="#{bean.nome}" />
+				</p:column>
+
+				<p:column headerText="Data">
+					<h:outputText value="#{bean.dataTexto}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

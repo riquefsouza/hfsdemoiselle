@@ -1,0 +1,110 @@
+@CHARSET "UTF-8";
+
+.ui-icon-locale-pt, .ui-icon-locale-en {
+	width: 32px;
+	height: 31px;
+	background-position: center;
+	display: block;
+	float: left;
+	background-repeat: no-repeat;
+}
+
+.ui-icon-locale-pt {
+	background-image: url("../images/locale_pt.png");
+}
+
+.ui-icon-locale-en {
+	background-image: url("../images/locale_en.png");
+}
+
+.ui-widget, .ui-widget .ui-widget {
+	font-size: 11px !important;
+}
+
+.ui-datatable, .ui-datatable td, .ui-datatable td div, .ui-datatable th
+	{
+	font-size: 11px !important;
+}
+
+label {
+	font-size: 11px !important;
+	/*	font-weight: bold !important; */
+}
+
+span {
+	font-size: 11px !important;
+}
+
+input, textarea, select {
+	font-size: 11px !important;
+}
+/*
+input[type=text]:FOCUS,input[type=password]:FOCUS,input[type=checkbox]:FOCUS,input[type=radius]:FOCUS,textarea:FOCUS,select:FOCUS {
+	background: #ffffc6 repeat-x top !important;   
+	font-size: 11px !important;
+}
+*/
+select[disabled] {
+	background: none !important;
+}
+
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
+	white-space: normal !important;
+}
+
+.ui-datatable tbody td {
+	word-wrap: break-word !important;
+	white-space: normal !important;
+}
+
+.ui-datatable-even:hover {
+	background: #ffffc6 !important;
+}
+
+.ui-datatable-odd:hover {
+	background: #ffffc6 !important;
+}
+/*
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+}
+*/
+.estiloColuna {
+	width: 10px;
+}
+
+.botaoEditar {
+	background: url("../images/editar.png") no-repeat center !important;
+	background-repeat: no-repeat !important;
+	background-position: top !important;
+	width: 24px !important;
+	height: 24px !important;
+	border: none !important;
+	box-shadow: none !important;
+	font-size: 0px !important;
+	cursor: pointer;
+}
+
+.botaoRemover {
+	background: url("../images/remover.png") no-repeat center !important;
+	background-repeat: no-repeat !important;
+	background-position: top !important;
+	width: 24px !important;
+	height: 24px !important;
+	border: none !important;
+	box-shadow: none !important;
+	font-size: 0px !important;
+	cursor: pointer;
+}
+
+.botaoVisualizar {
+	background: url("../images/visualizar.png") no-repeat center !important;
+	background-repeat: no-repeat !important;
+	background-position: top !important;
+	width: 23px !important;
+	height: 23px !important;
+	border: none !important;
+	box-shadow: none !important;
+	font-size: 0px !important;
+	cursor: pointer;
+}

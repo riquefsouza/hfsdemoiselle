@@ -1,0 +1,90 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{perfilEditMB.insert}"
+						rendered="#{!perfilEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{perfilEditMB.update}"
+						rendered="#{perfilEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}"
+						onclick="PF('confirmation').show()"
+						rendered="#{perfilEditMB.updateMode}" type="button"
+						immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert"
+						widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}"
+							action="#{perfilEditMB.delete}" immediate="true" ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}"
+							onclick="PF('confirmation').hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['perfil.label']}" toggleable="true"
+				toggleSpeed="500">
+				<h:panelGrid id="fieldsperfil" columns="3">
+
+					<h:outputLabel value="#{messages['perfil.label.id']}: " for="id"
+						styleClass="text-input" />
+
+					<h:outputText id="id" value="#{perfilEditMB.bean.id}" />
+
+					<p:message for="id" />
+
+					<h:outputLabel value="#{messages['perfil.label.perfil']}: "
+						for="perfil" styleClass="text-input" />
+
+					<p:inputText id="perfil" value="#{perfilEditMB.bean.perfil}"
+						title="#{messages['perfil.alt.perfil']}" />
+
+					<p:message for="perfil" />
+
+				</h:panelGrid>
+			</p:fieldset>
+
+			<p:fieldset legend="#{messages['entidade.label']}" toggleable="true">
+				<p:pickList id="pickListEntidade"
+					value="#{perfilEditMB.entidadeList}" var="varEntidade"
+					effect="bounce" itemValue="#{varEntidade}"
+					itemLabel="#{varEntidade}" converter="ConversorEntidade"
+					showSourceControls="true" showTargetControls="true"
+					showCheckbox="true" showSourceFilter="true" showTargetFilter="true"
+					filterMatchMode="contains" immediate="true">
+					<f:facet name="sourceCaption">"#{messages['entidade.label']}"</f:facet>
+					<f:facet name="targetCaption"> #{messages['entidade.label']} "do(a)" #{messages['perfil.label']} </f:facet>
+					<p:ajax event="transfer" listener="#{perfilEditMB.onTransferEntidade}"
+						update="pickListEntidade" />
+				</p:pickList>
+			</p:fieldset>
+
+			<p:fieldset legend="#{messages['usuario.label']}" toggleable="true">
+				<p:pickList id="pickListUsuario" value="#{perfilEditMB.usuarioList}"
+					var="varUsuario" effect="bounce" itemValue="#{varUsuario}"
+					itemLabel="#{varUsuario}" converter="ConversorUsuario"
+					showSourceControls="true" showTargetControls="true"
+					showCheckbox="true" showSourceFilter="true" showTargetFilter="true"
+					filterMatchMode="contains" immediate="true">
+					<f:facet name="sourceCaption">"#{messages['usuario.label']}"</f:facet>
+					<f:facet name="targetCaption"> #{messages['usuario.label']} "do(a)" #{messages['perfil.label']} </f:facet>
+					<p:ajax event="transfer" listener="#{perfilEditMB.onTransferUsuario}"
+						update="pickListUsuario" />
+				</p:pickList>
+			</p:fieldset>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

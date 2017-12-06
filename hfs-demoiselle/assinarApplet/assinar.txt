@@ -1,0 +1,17 @@
+keytool -genkey -keystore testKeys -alias jdc
+
+jarsigner -keystore testKeys assinador-jnlp.jar jdc
+jarsigner -keystore testKeys javaws.jar jdc
+jarsigner -keystore testKeys commons-io-2.5.jar jdc
+
+
+https://docs.oracle.com/javase/tutorial/deployment/applet/examplesIndex.html
+
+
+
+jarsigner -keystore testKeys Assinador.jar jdc
+jarsigner -keystore testKeys bcmail-jdk15on-1.46.jar jdc
+jarsigner -keystore testKeys bcprov-jdk15on-1.46.jar jdc
+jarsigner -keystore testKeys java-plugin-1.6.0.23.jar jdc
+jarsigner -keystore testKeys log4j-1.2.17.jar jdc
+

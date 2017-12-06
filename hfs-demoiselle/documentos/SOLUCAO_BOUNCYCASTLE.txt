@@ -1,0 +1,92 @@
+#Criar diretorio
+
+cd C:\Demoiselle\server\jboss-7.1\modules
+mkdir org\bouncycastle\main
+cd org\bouncycastle\main
+
+copy bcprov-jdk15on-1.54.jar para org\bouncycastle\main
+copy bcpkix-jdk15on-1.54.jar para org\bouncycastle\main
+copy bcmail-jdk15on-1.54.jar para org\bouncycastle\main
+
+copy C:\Demoiselle\server\jboss-7.1\standalone\deployments\hfs-demoiselle.war\WEB-INF\lib\bcprov-jdk15on-1.54.jar C:\Demoiselle\server\jboss-7.1\modules\org\bouncycastle\main
+
+Criar o arquivo 'bcprov-jdk15on-1.54.jar.index' no org\bouncycastle\main
+
+jar -tf bcprov-jdk15on-1.54.jar > bcprov-jdk15on-1.54.jar.index
+jar -tf bcpkix-jdk15on-1.54.jar > bcpkix-jdk15on-1.54.jar.index
+jar -tf bcmail-jdk15on-1.54.jar > bcmail-jdk15on-1.54.jar.index
+
+remover as linhas .class 
+
+findstr /i /v ".class" bcmail-jdk15on-1.54.jar.index > bcmail-jdk15on-1.54.jar.index2
+del bcmail-jdk15on-1.54.jar.index
+rename bcmail-jdk15on-1.54.jar.index2 bcmail-jdk15on-1.54.jar.index
+
+findstr /i /v ".class" bcprov-jdk15on-1.54.jar.index > bcprov-jdk15on-1.54.jar.index2
+del bcprov-jdk15on-1.54.jar.index
+rename bcprov-jdk15on-1.54.jar.index2 bcprov-jdk15on-1.54.jar.index
+
+findstr /i /v ".class" bcpkix-jdk15on-1.54.jar.index > bcpkix-jdk15on-1.54.jar.index2
+del bcpkix-jdk15on-1.54.jar.index
+rename bcpkix-jdk15on-1.54.jar.index2 bcpkix-jdk15on-1.54.jar.index
+
+
+Criar o arquivo module.xml no org\bouncycastle\main
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module xmlns="urn:jboss:module:1.1" name="org.bouncycastle">
+
+    <resources>
+		<resource-root path="bcprov-jdk15on-1.54.jar"/>
+		<resource-root path="bcpkix-jdk15on-1.54.jar"/>
+		<resource-root path="bcmail-jdk15on-1.54.jar"/>
+    </resources>
+	
+	<dependencies>
+    	<module name="javax.api" slot="main" export="true"/>
+	</dependencies>
+		
+
+</module>
+
+Alterar o POM.XML do projeto
+
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcprov-jdk15on</artifactId>
+    <version>1.54</version>
+    <scope>provided</scope>
+</dependency>
+
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcpkix-jdk15on</artifactId>
+    <version>1.54</version>
+    <scope>provided</scope>
+</dependency>
+
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bcmail-jdk15on</artifactId>
+    <version>1.54</version>
+    <scope>provided</scope>
+</dependency>
+
+
+---------------
+
+
+
+But if You change server from JBoss to other (for example Glassfish) You have the same problem.
+The better solition for me are changes in jdk.
+You shoud add Bouncy Castle to security providers on Your java platform in two steps:
+1. Copy BC librarys (currently bcpkix-jdk15on-149.jar, bcprov-jdk15on-149.jar) to directory $JAVA_HOME/jre/lib/ext/
+2. Register BC provider: edit file $JAVA_HOME/jre/lib/security/java.security and under line
+
+security.provider.1=sun.security.provider.Sun
+add Your BC provider
+
+security.provider.11=org.bouncycastle.jce.provider.BouncyCastleProvider
+Change numbers of rest providers. The whole block of providers should be similar to:
+

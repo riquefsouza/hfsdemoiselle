@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="3">
+				<p:outputLabel value="Usuário: " for="usuario"
+					styleClass="text-input" />
+				<p:inputText id="usuario" value="#{templateView.nomeUsuario}"
+					required="true" />
+				<p:message for="usuario" />
+
+				<p:outputLabel value="Senha: " for="senha" styleClass="text-input" />
+				<p:password id="senha" value="#{templateView.senha}" required="true" />
+				<p:message for="senha" />
+
+				<p:outputLabel value="Ano: " for="anoAtual" styleClass="text-input" />
+				<p:spinner id="anoAtual" value="#{templateView.anoAtual}"
+					required="true" min="1900" max="2100" />
+				<p:message for="anoAtual" />
+
+				<p:spacer />
+				<p:commandButton id="btnCarregar" value="Carregar Modelo"
+					action="#{templateView.carregar}" ajax="false" />
+				<p:spacer />
+
+			</h:panelGrid>
+
+			<p:separator />
+
+			<h:outputText value="#{templateView.resultado}" escape="false" />
+
+		</h:form>
+	</ui:define>
+</ui:composition>

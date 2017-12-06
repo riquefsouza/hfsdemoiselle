@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="Regerar" title="Regerar"
+						action="#{extensoMB.gerar}" ajax="false" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<h:panelGrid columns="2" cellpadding="5" styleClass="ui-grid">
+				<h:outputText for="minMax" value="Quantidade de números: " />
+				<p:spinner id="minMax" value="#{extensoMB.quantidade}" min="1"
+					max="100" />
+			</h:panelGrid>
+
+			<p:dataTable var="bean" value="#{extensoMB.lista}"
+				emptyMessage="#{messages['main.nenhum.registro']}">
+				<p:column headerText="Numero" style="width: 25%">
+					<h:outputText value="#{bean.numero}" />
+				</p:column>
+
+				<p:column headerText="Extenso">
+					<h:outputText value="#{bean.extenso}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

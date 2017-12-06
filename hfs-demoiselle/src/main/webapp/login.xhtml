@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main_login.xhtml">
+
+	<ui:define name="body">
+		<p:fieldset legend="Autentique-se" style="width:30%">
+			<h:form>
+				<h:panelGrid columns="3">
+					<h:outputLabel value="#{messages['login.user']}" for="username" />
+					<p:inputText id="username" value="#{credential.login}"
+						title="#{messages['login.user']}" required="true" />
+					<p:message for="username" />
+
+					<h:outputLabel value="#{messages['login.password']}" for="password" />
+					<p:password id="password" value="#{credential.senha}"
+						required="true" />
+					<p:message for="password" />
+
+					<p:spacer />
+					<p:graphicImage id="capimg" style="height: 46px;" value="#{loginMB.dynamicCaptcha}" />
+					<p:commandLink value="recarregar" partialSubmit="true" process="@this"
+							action="#{loginMB.limparCaptch}" update="capimg"
+							title="#{messages['load_captcha']}" />					
+					
+					<h:outputLabel value="#{messages.label_inputText_captcha}"
+						styleClass="labelCaptcha" />
+					<p:inputText id="captchUsuario" styleClass="captchUsuario"
+						value="#{loginMB.captchInserido}" autocomplete="off" />
+					<p:spacer />
+
+					<div>
+						<h:commandButton value="Entrar" action="#{loginMB.doLogin}" />
+					</div>
+				</h:panelGrid>
+			</h:form>
+		</p:fieldset>		
+	</ui:define>
+
+</ui:composition>

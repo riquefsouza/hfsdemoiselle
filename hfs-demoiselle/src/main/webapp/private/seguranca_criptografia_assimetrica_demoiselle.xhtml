@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form style="width: 850px">
+			<p:panel id="pnl" header="Criptografia Assimétrica Demoiselle">
+				<h:panelGrid columns="2">
+					<h:outputText for="algoritmo" value="Algoritmo:" />
+					<p:selectOneMenu id="algoritmo"
+						value="#{criptografiaAssimetricaDView.algoritmo}" style="width:155px">
+						<f:selectItems value="#{criptografiaAssimetricaDView.listaAlgoritmo}" />
+					</p:selectOneMenu>
+					
+					<h:outputText for="chavePublica" value="Chave Pública:" />
+					<p:inputTextarea id="chavePublica"
+						value="#{criptografiaAssimetricaDView.chavePublica}" rows="5" cols="100"
+						editable="false" readonly="true" />
+
+					<h:outputText for="chavePublicaFormato" value="Chave Pública Formato:" />
+					<h:outputText for="chavePublicaFormato" value="#{criptografiaAssimetricaDView.chavePublicaFormato}" />
+					
+					<h:outputText for="chavePrivada" value="Chave Privada:" />
+					<p:inputTextarea id="chavePrivada"
+						value="#{criptografiaAssimetricaDView.chavePrivada}" rows="12" cols="100"
+						editable="false" readonly="true" />
+
+					<h:outputText for="chavePrivadaFormato" value="Chave Privada Formato:" />
+					<h:outputText for="chavePrivadaFormato" value="#{criptografiaAssimetricaDView.chavePrivadaFormato}" />					
+				</h:panelGrid>
+				<p:spacer />
+				<p:spacer />
+				<h:panelGrid columns="3">
+					<h:outputText for="textoPuro" value="Digite o texto para criptografar:" />
+					<h:outputText for="textoCriptografado" value="Resultado da criptografia:" />
+					<h:outputText for="textoDescriptografado" value="Resultado da Descriptografia:" />
+
+					<p:inputTextarea id="textoPuro"
+						value="#{criptografiaAssimetricaDView.textoPuro}" rows="10" cols="35"
+						counter="display" maxlength="255"
+						counterTemplate="{0} caracteres restantes." />
+
+					<p:inputTextarea id="textoCriptografado"
+						value="#{criptografiaAssimetricaDView.textoCriptografado}" rows="10" cols="35"
+						editable="false" readonly="true" />
+
+					<p:inputTextarea id="textoDescriptografado"
+						value="#{criptografiaAssimetricaDView.textoDescriptografado}" rows="10" cols="35"
+						editable="false" readonly="true" />
+
+					<h:outputText id="display" />
+					<p:spacer />
+					<p:spacer />					
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<center>
+						<p:commandButton value="Criptografar" action="#{criptografiaAssimetricaDView.setParams(criptografiaAssimetricaDView.criptografar())}"
+							ajax="false" />
+						<p:spacer />
+						<p:commandButton value="Descriptografar" action="#{criptografiaAssimetricaDView.descriptografar(criptografiaAssimetricaDView.getParams())}"
+							ajax="false" />
+						<p:spacer />
+						<p:commandButton value="Limpar" title="Limpar"
+							action="#{criptografiaAssimetricaDView.limpar}" ajax="false" />
+					</center>
+				</f:facet>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

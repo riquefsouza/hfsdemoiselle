@@ -1,0 +1,96 @@
+<html xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view contentType="text/html" locale="#{locales.currentLocale}" />
+
+<h:head>
+	<title>#{messages['main.app.title']}</title>
+	<link type="text/css" rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/styles.css" />
+		
+	<link type="text/css" rel="stylesheet" 
+	href="#{facesContext.externalContext.requestContextPath}/resources/calculator/jquery.calculator.css"/>		
+</h:head>
+
+<h:body style="background-color:#f1f1f1">
+	<table style="width: 100%">
+		<tr>
+			<td rowspan="2" align="left" style="width: 10%"><img
+					src="#{facesContext.externalContext.requestContextPath}/resources/images/logo.png"
+					border="0" /></td>
+			<td rowspan="2" align="center"><h:outputText
+					value="#{messages['main.app.title']}"
+					style="font-size: 32px !important;" /></td>
+			<td style="width: 20%">
+				<h:form id="language_form" prependId="true">
+					<div style="float: right">
+						<h:commandLink action="#{locales.setCurrentLocale('pt')}">
+							<span class="ui-icon-locale-pt"></span>
+						</h:commandLink>
+						<h:commandLink action="#{locales.setCurrentLocale('en')}">
+							<span class="ui-icon-locale-en"></span>
+						</h:commandLink>
+					</div>
+
+					<h:outputText value="Sua sessao expira em:" />
+					<div id="relogio-regressivo"></div>
+
+				</h:form></td>
+		</tr>
+		<tr>
+			<td>
+				<h:outputText value="Login:" /> 
+				<h:outputText value="#{credential.login}" /> 
+					
+				<p:ajaxStatus
+					style="display:block;">
+					<f:facet name="default">
+						<p:graphicImage value="/resources/images/loadingbar.png" />
+					</f:facet>
+
+					<f:facet name="start">
+						<p:graphicImage value="/resources/images/loadingbar.gif" />
+					</f:facet>
+
+					<f:facet name="complete">
+						<p:graphicImage value="/resources/images/loadingbar.png" />
+					</f:facet>
+				</p:ajaxStatus>
+			</td>
+		</tr>
+		<tr>
+			<td height="20" colspan="3"><ui:include
+					src="/private/menu.xhtml" /></td>
+		</tr>
+		<tr valign="top">
+			<td height="600" colspan="3"><ui:insert name="body" /></td>
+		</tr>
+		<tr align="center">
+			<td height="20" colspan="3" align="center" class="text-input">#{messages['main.footer.text']}</td>
+		</tr>
+	</table>
+
+<!-- 
+	<p:dialog id="dlgExpSessao" header="Atencao" modal="true"
+		widgetVar="dlgSessaoExpirada" appendTo="@(body)" closable="false"
+		maximizable="false" draggable="false" closeOnEscape="false"
+		resizable="false" showHeader="false">
+		<h:outputText
+			value="Atencao! Devido a inatividade, sua sessao expirou." />
+		<br />
+		<br />
+		<center>
+			<p:commandButton value="Ok"
+				onclick="document.location = '../index.html';"
+				style="width: 50%;" />
+		</center>
+	</p:dialog>
+ -->
+	<p:growl id="messages" globalOnly="true" />
+
+	<h:outputScript library="js" name="locale-primefaces.js" />
+	<h:outputScript library="js" name="relogio-regressivo.js" />
+</h:body>
+</html>

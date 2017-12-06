@@ -1,0 +1,75 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{entidadeEditMB.insert}"
+						rendered="#{!entidadeEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}"
+						action="#{entidadeEditMB.update}"
+						rendered="#{entidadeEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}"
+						onclick="PF('confirmation').show()"
+						rendered="#{entidadeEditMB.updateMode}" type="button"
+						immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert"
+						widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}"
+							action="#{entidadeEditMB.delete}" immediate="true" ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}"
+							onclick="PF('confirmation').hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['entidade.label']}" toggleable="true"
+				toggleSpeed="500">
+				<h:panelGrid id="fieldsentidade" columns="3">
+
+					<h:outputLabel value="#{messages['entidade.label.id']}: " for="id"
+						styleClass="text-input" />
+
+					<h:outputText id="id" value="#{entidadeEditMB.bean.id}" />
+
+					<p:message for="id" />
+
+					<h:outputLabel value="#{messages['entidade.label.nome']}: "
+						for="nome" styleClass="text-input" />
+
+					<p:inputText id="nome" value="#{entidadeEditMB.bean.nome}"
+						title="#{messages['entidade.alt.nome']}" />
+
+					<p:message for="nome" />
+
+				</h:panelGrid>
+			</p:fieldset>
+
+			<p:fieldset legend="#{messages['perfil.label']}" toggleable="true">
+				<p:pickList id="pickListPerfil" value="#{entidadeEditMB.perfilList}"
+					var="varPerfil" effect="bounce" itemValue="#{varPerfil}"
+					itemLabel="#{varPerfil}" converter="ConversorPerfil"
+					showSourceControls="true" showTargetControls="true"
+					showCheckbox="true" showSourceFilter="true" showTargetFilter="true"
+					filterMatchMode="contains" immediate="true">
+					<f:facet name="sourceCaption">"#{messages['perfil.label']}"</f:facet>
+					<f:facet name="targetCaption"> #{messages['perfil.label']} "do(a)" #{messages['entidade.label']} </f:facet>
+					<p:ajax event="transfer" listener="#{entidadeEditMB.onTransfer}"
+						update="pickListPerfil" />
+				</p:pickList>
+			</p:fieldset>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

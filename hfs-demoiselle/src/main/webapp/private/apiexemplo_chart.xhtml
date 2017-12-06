@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:accordionPanel multiple="true" dynamic="true" cache="true">
+				<p:tab title="Gráfico de Torta">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage value="#{chartUtilView.pieChart}" />
+						<p:graphicImage value="#{chartUtilView.pieChart3D}" />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Gráfico de Linha XY e Séries Temporais">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage value="#{chartUtilView.XYLineChart}" />
+						<p:graphicImage value="#{chartUtilView.timeSeries}" />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Gráfico de Barra">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage value="#{chartUtilView.barChart}" />
+						<p:graphicImage value="#{chartUtilView.barChart3D}" />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Gráfico de Área e Área XY">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage value="#{chartUtilView.areaChart}" />
+						<p:graphicImage value="#{chartUtilView.XYAreaChart}" />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Gráfico de Barra Empilhada">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage value="#{chartUtilView.stackedBarChart}" />
+						<p:graphicImage value="#{chartUtilView.stackedBarChart3D}" />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Gráfico em Passo XY e em Passo XY de Área">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage value="#{chartUtilView.XYStepChart}" />
+						<p:graphicImage value="#{chartUtilView.XYStepAreaChart}" />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Gráfico de Linha">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage value="#{chartUtilView.lineChart}" />
+						<p:graphicImage value="#{chartUtilView.lineChart3D}" />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Gráfico de Bolha e Histograma">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage value="#{chartUtilView.bubbleChart}" />
+						<p:graphicImage value="#{chartUtilView.histogramChart}" />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Gráfico de Barra XY">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage value="#{chartUtilView.XYBarChart}" />
+						<p:graphicImage value="#{chartUtilView.XYBarChart3D}" />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Gráfico de Caixa e Área empilhada">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage value="#{chartUtilView.boxAndWhiskerChart}" />
+						<p:graphicImage value="#{chartUtilView.stackedAreaChart}" />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Gráfico de Dispersão e Alto/Baixo">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage value="#{chartUtilView.scatterChart}" />
+						<p:graphicImage value="#{chartUtilView.highLowChart}" />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Gráfico de Candelabro e de Gantt">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage value="#{chartUtilView.candlestickChart}" />
+						<p:graphicImage value="#{chartUtilView.ganttChart}" />
+					</h:panelGrid>
+				</p:tab>
+			</p:accordionPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,110 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}"
+						icon="ui-icon-pencil" action="#{correioEditMB.insert}"
+						rendered="#{!correioEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}"
+						icon="ui-icon-pencil" action="#{correioEditMB.update}"
+						rendered="#{correioEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}"
+						icon="ui-icon-trash" rendered="#{correioEditMB.updateMode}"
+						onclick="PF('confirmation').show()" type="button" immediate="true"
+						ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						header="#{messages['label.dialog.delete']}" showEffect="fade"
+						hideEffect="fade" severity="alert" widgetVar="confirmation">
+						<p:commandButton value="#{messages['button.dialog.yes']}"
+							action="#{correioEditMB.delete}" immediate="true" ajax="false" />
+						<p:commandButton value="#{messages['button.dialog.no']}"
+							onclick="PF('confirmation').hide();" type="button" />
+					</p:confirmDialog>
+
+					<p:commandButton value="#{messages['button.back']}"
+						title="#{messages['button.back']}" icon="ui-icon-arrowthick-1-w"
+						action="#{correioEditMB.getPreviousView}" ajax="false" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['correio.label']}">
+				<h:panelGrid id="fieldscorreio" columns="3">
+
+					<p:outputLabel value="#{messages['correio.label.id']}: " for="id"
+						styleClass="text-input" />
+					<h:outputText id="id" value="#{correioEditMB.bean.id}" />
+					<p:message for="id" />
+
+					<p:outputLabel value="#{messages['correio.label.estado']}: " for="estado" />
+		            <p:selectOneMenu id="estado" value="#{correioEditMB.bean.estado}" style="width:150px" required="true"
+		            	valueChangeListener="#{correioEditMB.selecionarEstado}" >
+		                <p:ajax listener="#{correioEditMB.onEstadoChange}" update="cidade" />
+		                <f:selectItem itemLabel="Selecione o Estado" itemValue="" noSelectionOption="true" />
+		                <f:selectItems value="#{correioEditMB.listaEstado}" />
+		            </p:selectOneMenu>
+		            <p:message for="estado" />
+
+					<p:outputLabel value="#{messages['correio.label.cidade']}: " for="cidade" />
+		            <p:selectOneListbox id="cidade" value="#{correioEditMB.bean.cidade}" filter="true" 
+		            	filterMatchMode="contains" style="width:200px" required="true"
+		            	valueChangeListener="#{correioEditMB.selecionarCidade}" >		                
+		                <f:selectItem itemLabel="Selecione a cidade" itemValue="" noSelectionOption="true" />
+		                <f:selectItems value="#{correioEditMB.listaCidade}" />
+		            </p:selectOneListbox>
+		            <p:message for="cidade" />
+
+					<p:outputLabel value="#{messages['correio.label.ufcep1']}: " for="ufcep1"
+						styleClass="text-input" />
+					<p:inputMask id="ufcep1" value="#{correioEditMB.bean.ufCep1}"
+						title="#{messages['correio.alt.ufcep1']}" required="true" />
+					<p:message for="ufcep1" />
+
+					<p:outputLabel value="#{messages['correio.label.ufcep2']}: " for="ufcep2"
+						styleClass="text-input" />
+					<p:inputMask id="ufcep2" value="#{correioEditMB.bean.ufCep2}"
+						title="#{messages['correio.alt.ufcep2']}" required="true" />
+					<p:message for="ufcep2" />
+
+
+					<p:outputLabel value="#{messages['correio.label.tipoLogradouro']}: " for="tipoLogradouro" />
+		            <p:selectOneMenu id="tipoLogradouro" value="#{correioEditMB.bean.tipoLogradouro}" style="width:200px" required="true" >
+		                <f:selectItem itemLabel="Selecione o Tipo de Logradouro" itemValue="" noSelectionOption="true" />
+		                <f:selectItems value="#{correioEditMB.listaTipoLogradouro}" />
+		            </p:selectOneMenu>
+		            <p:message for="tipoLogradouro" />
+
+					<p:outputLabel value="#{messages['correio.label.logradouro']}: "
+						for="logradouro" styleClass="text-input" />
+					<p:inputText id="logradouro" value="#{correioEditMB.bean.logradouro}"
+						size="50" title="#{messages['correio.alt.logradouro']}" required="true" />
+					<p:message for="logradouro" />
+
+					<p:outputLabel value="#{messages['correio.label.bairro']}: "
+						for="bairro" styleClass="text-input" />
+					<p:inputText id="bairro" value="#{correioEditMB.bean.bairro}"
+						size="50" title="#{messages['correio.alt.bairro']}" required="true" />
+					<p:message for="bairro" />
+
+					<p:outputLabel value="#{messages['correio.label.cep']}: " for="cep"
+						styleClass="text-input" />
+					<p:inputMask id="cep" value="#{correioEditMB.bean.cep}"
+						title="#{messages['correio.alt.cep']}" mask="99999-999" required="true" 
+						converter="mascaraCepConverter" />
+					<p:message for="cep" />
+
+				</h:panelGrid>
+			</p:fieldset>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

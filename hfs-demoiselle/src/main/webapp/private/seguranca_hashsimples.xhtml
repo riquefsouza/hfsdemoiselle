@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form style="width: 550px" enctype="multipart/form-data">
+			<p:panel id="pnl" header="Hash Simples Demoiselle">
+				<h:panelGrid columns="2">
+					<h:outputText for="algoritmo" value="Algoritmo:" />
+					<p:selectOneMenu id="algoritmo"
+						value="#{hashSimplesView.algoritmo}" style="width:125px">
+						<f:selectItems value="#{hashSimplesView.listaAlgoritmo}" />
+					</p:selectOneMenu>
+
+					<h:outputText for="arquivo" value="Arquivo:" />
+					<p:fileUpload id="arquivo" mode="simple"
+						allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+						value="#{hashSimplesView.arquivo}" />
+				</h:panelGrid>
+				<p:spacer />
+				<p:spacer />
+				<h:panelGrid columns="2">
+					<h:outputText for="textoPuro" value="Digite o texto para o hash:" />
+					<h:outputText for="textoHash" value="Hash de resultado:" />
+
+					<p:inputTextarea id="textoPuro"
+						value="#{hashSimplesView.textoPuro}" rows="10" cols="35"
+						counter="display" maxlength="255"
+						counterTemplate="{0} caracteres restantes." />
+
+					<p:inputTextarea id="textoHash"
+						value="#{hashSimplesView.textoHash}" rows="10" cols="35"
+						editable="false" readonly="true" />
+
+					<h:outputText id="display" />
+					<p:spacer />
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<center>
+						<p:commandButton value="Gerar" action="#{hashSimplesView.gerar}"
+							ajax="false" />
+						<p:spacer />
+						<p:commandButton value="Gerar Arquivo" action="#{hashSimplesView.gerarArquivo}"
+							ajax="false" />
+						<p:spacer />
+						<p:commandButton value="Limpar" title="Limpar"
+							action="#{hashSimplesView.limpar}" ajax="false" />
+					</center>
+				</f:facet>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

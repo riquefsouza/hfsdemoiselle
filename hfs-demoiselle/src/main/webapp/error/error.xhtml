@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main_login.xhtml"> 
+
+	<ui:define name="body">
+		<p:fieldset legend="Pagina de erro generica">
+			<h:form>
+				<h:panelGrid columns="1">				
+					<h:outputLabel value="#{messages['main.error']}" />
+				</h:panelGrid>
+			</h:form>
+		</p:fieldset>
+	</ui:define>
+
+</ui:composition>

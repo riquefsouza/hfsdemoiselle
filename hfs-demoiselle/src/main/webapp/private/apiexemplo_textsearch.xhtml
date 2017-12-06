@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="form">
+			<h3>Pesquisa de Texto Indexado</h3>
+			
+			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+			 
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" 
+					resizable="false" showHeader="false" style="border-style: solid;border-width: 2px;">				
+			    <center>
+				    <p:graphicImage value="/resources/images/ajaxloadingbar.gif" />
+				    <br />
+				    <h:outputText value="Carregando..." />
+			    </center>
+			</p:dialog>			
+			
+			<h:outputText value="Número Total de Linhas: " />
+			<h:outputText value="#{textSearchView.totalLinhas}" id="totalLinhas" />
+			<br />
+
+			<h:outputText value="Diretório indexado: " />
+			<h:outputText value="#{textSearchView.diretorio}" id="diretorio" />
+			<br />
+
+			<h:outputText value="Texto a ser pesquisado: " />
+			<p:inputText value="#{textSearchView.pesquisa}" id="pesquisa" />
+			<br />
+
+			<p:commandButton value="Carregar" ajax="false" action="#{textSearchView.carregar()}"
+				update="totalLinhas,dirTable" disabled="#{textSearchView.desabilitaBtnCarregar}" />
+			<p:spacer />
+			<p:commandButton value="Limpar" ajax="false" action="#{textSearchView.limpar()}"  
+				update="totalLinhas,dirTable" disabled="#{textSearchView.desabilitaBtnLimpar}" />
+			<p:separator />
+			
+			<p:dataTable var="dir" value="#{textSearchView.lista}" 
+				id="dirTable" emptyMessage="#{messages['main.nenhum.registro']}"
+				paginator="true" rows="10" pageLinks="10"
+				rowsPerPageTemplate="10,20,50,100,150,200,250"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
+
+				<p:column headerText="Diretório" sortBy="#{dir.diretorio}"
+					filterBy="#{dir.diretorio}">
+					<h:outputText value="#{dir.diretorio}" />
+				</p:column>
+				<p:column headerText="Arquivo" sortBy="#{dir.arquivo}"
+					filterBy="#{dir.arquivo}">
+					<h:outputText value="#{dir.arquivo}" />
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<project name="hfsscanner" default="copiar" basedir=".">
+
+	<!-- propriedades do projeto com os nomes dos diretorios -->
+	
+	<property name="src" value="${basedir}/target/classes" />
+	<property name="dist" value="${basedir}/scanner" />
+	<property name="spacote" value="br/hfs/util" />
+	
+	<echo>Diretorio fonte: ${src}</echo>
+	<echo>Diretorio binarios: ${build}</echo>
+	<echo>Diretorio distribuicao: ${dist}</echo>
+
+	<target name="distribuir">
+		<echo>Gerando o .jar do projeto</echo>
+		<jar jarfile="${dist}/Scanner.jar" basedir="${src}" 
+			includes="${spacote}/scanner/*.class,${spacote}/scanner/imagens/*.*">			
+			<manifest>
+                <attribute name="Main-Class" value=""/>
+            </manifest>
+		</jar>
+	</target>
+
+	<target name="copiar" depends="distribuir">
+		<copy file="${dist}/Scanner.jar" tofile="${basedir}/src/main/webapp/scanner/lib/Scanner.jar" overwrite="true" />
+	</target>
+<!--
+Na pasta /webapp/scanner/lib/
+
+		commons-codec-1.9.jar
+		Scanner.jar
+		jna.jar
+		log4j.jar
+		platform.jar	
+	-->
+</project>

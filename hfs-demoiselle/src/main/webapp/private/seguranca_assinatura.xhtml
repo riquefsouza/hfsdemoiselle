@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form enctype="multipart/form-data">
+			<h:panelGrid columns="3">
+				<h:outputText for="tipo" value="Qual Arquivo?" />
+				<p:selectOneRadio id="tipo" value="#{assinaturaView.tipo}">
+					<f:selectItem itemLabel="Java Key Store" itemValue="jks" />
+					<f:selectItem itemLabel="PKCS #12" itemValue="pfx" />
+				</p:selectOneRadio>
+				<p:message for="tipo" />
+
+				<h:outputText for="arquivoStore" value="Carregar Arquivo:" />
+				<p:fileUpload id="arquivoStore" mode="simple"
+					allowTypes="/(\.|\/)(jks|pfx|p12)$/"
+					value="#{assinaturaView.arquivoStore}" />
+				<p:spacer />
+
+				<h:outputText for="senha" value="Senha do Arquivo:" />
+				<p:password id="senha" value="#{assinaturaView.senha}"
+					required="true" />
+				<p:message for="senha" />
+
+				<h:outputText for="arquivo" value="Arquivo a ser assinado:" />
+				<p:fileUpload id="arquivo" mode="simple"
+					value="#{assinaturaView.arquivo}" />
+				<p:spacer />
+
+			</h:panelGrid>
+
+			<p:separator />
+			<p:commandButton value="Download do arquivo assinado" ajax="false"
+				onclick="PrimeFaces.monitorDownload(start, stop);"
+				icon="ui-icon-arrowthick-1-s">
+				<p:fileDownload value="#{assinaturaView.saida}" />
+			</p:commandButton>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
