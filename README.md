@@ -1,2 +1,2 @@
 # hfsdemoiselle
-hfsdemoiselle - Muitos utilitários para o framework Demoiselle
+hfsdemoiselle - Many utilities for the Demoiselle framework
